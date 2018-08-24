@@ -6,8 +6,9 @@
   /** @ngInject */
   function configBlock($locationProvider, $logProvider, $translateProvider,
                        tmhDynamicLocaleProvider) {
-    $locationProvider.
-        html5Mode(true);
+    // todo: Research url solution
+    // $locationProvider.
+    //     html5Mode(true);
 
     $logProvider.
         debugEnabled(true);
