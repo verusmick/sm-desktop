@@ -1,18 +1,17 @@
-<h1>login</h1>
-
-<h2>{{ 'home.greeting' | translate }}</h2>
-
-<p>
-    {{ 'home.details' | translate }}
-    <a href="https://github.com/1oginov/Angular-Gulp-Boilerplate"
-       target="_blank">https://github.com/1oginov/Angular-Gulp-Boilerplate</a>
-</p>
-
-<p>
-    <button ng-click="vm.switchLanguage('en')">In English</button>
-    <button ng-click="vm.switchLanguage('ru')">По-русски</button>
-</p>
-
-<p>
-    <button ng-click="vm.showSampleConstant()">{{ 'home.button' | translate }}</button>
-</p>
+<div>
+    <form class="form-signin">
+        <img class="mb-4" src="../../assets/images/sm-logo.png" alt="" width="250" height="130">
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <label for="inputCi" class="sr-only">Nº de Cedula de Identidad:</label>
+        <input type="text" id="inputCi" class="form-control" placeholder="Nº de Cedula de Identidad:" required autofocu>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <!--<div class="checkbox mb-3">-->
+            <!--<label>-->
+                <!--<input type="checkbox" value="remember-me"> Remember me-->
+            <!--</label>-->
+        <!--</div>-->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+        <p class="mt-5 mb-3 text-muted">© Sana Medic</p>
+    </form>
+</div>
