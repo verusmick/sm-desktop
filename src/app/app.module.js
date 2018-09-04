@@ -5,6 +5,6 @@
     'pascalprecht.translate',
     'tmh.dynamicLocale',
     'ui.router',
+    'ngStorage'
   ]);
-
 })();

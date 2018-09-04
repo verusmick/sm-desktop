@@ -47,6 +47,7 @@
     "angular-translate-handler-log": "^2.18.1",
     "angular-translate-loader-static-files": "^2.18.1",
     "angular-ui-router": "^1.0.19",
-    "normalize-css": "^8.0.0"
+    "normalize-css": "^8.0.0",
+    "ngstorage": "^0.3.11"
   }
 }

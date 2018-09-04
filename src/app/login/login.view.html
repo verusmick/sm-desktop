@@ -3,15 +3,30 @@
         <img class="mb-4" src="../../assets/images/sm-logo.png" alt="" width="270" height="130">
         <h1 class="h3 mb-3 font-weight-normal">Login</h1>
         <label for="inputCi" class="sr-only">Nº de Cedula de Identidad:</label>
-        <input type="text" id="inputCi" class="form-control" placeholder="Nº de Cedula de Identidad:" required autofocu>
+        <input ng-model="vm.ci"
+               type="text"
+               id="inputCi"
+               class="form-control"
+               placeholder="Nº de Cedula de Identidad:"
+               required autofocu>
         <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+        <input ng-model="vm.password"
+               type="password"
+               id="inputPassword"
+               class="form-control"
+               placeholder="Password"
+               required>
         <!--<div class="checkbox mb-3">-->
         <!--<label>-->
         <!--<input type="checkbox" value="remember-me"> Remember me-->
         <!--</label>-->
         <!--</div>-->
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+        <button ng-click="vm.login()"
+                ng-disabled="!vm.ci || !vm.password"
+                class="btn btn-lg btn-primary btn-block"
+                type="submit">
+            Ingresar
+        </button>
         <p class="mt-5 mb-3 text-muted">© Sana Medic</p>
     </form>
 </div>

@@ -8,29 +8,29 @@
   });
 
   /** @ngInject */
-  function LoginController($log, $rootScope, $translate, SAMPLE_CONSTANT) {
+  function LoginController($state, $localStorage, LoginService) {
     const vm = this;
+    vm.ci = '';
+    vm.password = '';
 
-    // Scope variables go here:
-    // vm.variable = 'value';
+    vm.login = login;
 
-    vm.showSampleConstant = showSampleConstant;
-    vm.switchLanguage = switchLanguage;
+    ////
 
-    activate();
+    function login() {
+      var authUserData = {
+        ci: vm.ci,
+        password: vm.password
+      }
 
-    function activate() {
-      $log.debug('home activated');
+      LoginService.login(authUserData).then(function (response) {
+        $localStorage['usr'] = response.data.user;
+        $localStorage['tk'] = response.data.token;
+
+        $state.go('dashboard');
+      }).catch(function () {
+
+      });
     }
-
-    function showSampleConstant() {
-      alert(SAMPLE_CONSTANT);
-    }
-
-    function switchLanguage(language) {
-      $translate.use(language);
-    }
-
   }
-
 })();
