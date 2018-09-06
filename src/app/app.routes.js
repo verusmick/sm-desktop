@@ -13,10 +13,12 @@
       .state('dashboard', {
         url: '/dashboard',
         component: 'dashboard',
+        auth: true
       })
       .state('dashboard.home', {
         url: '/home',
-        component: 'home'
+        component: 'home',
+        auth: true
       });
 
     $urlRouterProvider.otherwise('/login');

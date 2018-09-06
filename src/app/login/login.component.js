@@ -27,7 +27,7 @@
         $localStorage['usr'] = response.data.user;
         $localStorage['tk'] = response.data.token;
 
-        $state.go('dashboard');
+        $state.go('dashboard.home');
       }).catch(function () {
 
       });
