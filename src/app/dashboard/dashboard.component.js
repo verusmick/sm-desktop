@@ -8,8 +8,9 @@
   });
 
   /** @ngInject */
-  function DashboardController() {
+  function DashboardController($localStorage, $timeout, $state) {
     const vm = this;
+    vm.logout = logout;
 
     // Scope variables go here:
     // vm.variable = 'value';
@@ -187,6 +188,12 @@
     initialize();
 
     /////end  paper dashboard functions
-
+    function logout() {
+      delete $localStorage['usr'];
+      delete $localStorage['tk'];
+      $timeout(function(){
+        $state.go('login');
+      }, 200)
+    }
   }
 })();
