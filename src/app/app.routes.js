@@ -19,6 +19,11 @@
         url: '/home',
         component: 'home',
         auth: true
+      })
+      .state('dashboard.users', {
+        url: '/users',
+        component: 'users',
+        auth: true
       });
 
     $urlRouterProvider.otherwise('/login');
