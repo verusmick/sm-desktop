@@ -16,6 +16,25 @@
             </b>
         </div>
         <div class="sidebar-wrapper">
+            <div class="user">
+                <div class="photo"><img src="../../assets/images/userImage.png"></div>
+                <div class="info">
+                    <a data-toggle="collapse" data-target="#collapseExample" class="collapsed" aria-expanded="false">
+                        <span>{{vm.user.firstName}} {{vm.user.firstSurname}} <b class="caret"></b></span>
+                    </a>
+                    <div class="clearfix"></div>
+                    <div class="collapse" id="collapseExample" style="">
+                        <ul class="nav">
+                            <li>
+                                <a href="#">
+                                    <span class="sidebar-mini-icon">MP</span>
+                                    <span class="sidebar-normal">My Profile</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <ul class="nav">
                 <li ui-sref-active="active">
                     <a ui-sref="dashboard.home">
@@ -30,14 +49,14 @@
                     </a>
                 </li>
                 <li>
-                    <a data-toggle="collapse" data-target="#pagesExamples" class="" aria-expanded="true">
+                    <a data-toggle="collapse" data-target="#pagesExamples" class="collapsed" aria-expanded="false">
                         <i class="nc-icon nc-single-02"></i>
                         <p>
                             Usuarios
                             <b class="caret"></b>
                         </p>
                     </a>
-                    <div class="collapse show" id="pagesExamples" style="">
+                    <div class="collapse" id="pagesExamples" style="">
                         <ul class="nav">
                             <li ui-sref-active="active">
                                 <a ui-sref="dashboard.users">
@@ -131,11 +150,11 @@
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="nc-icon nc-settings-gear-65"></i>
                                 <p>
-                                    <span class="d-lg-none d-md-block">Settings</span>
+                                    <span class="d-lg-none d-md-block">Options</span>
                                 </p>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="settingsDropdown">
-                                <a class="dropdown-item" href="#">Cuenta</a>
+                                <!--<a class="dropdown-item" href="#">Cuenta</a>-->
                                 <a class="dropdown-item" ng-click="vm.logout()">Salir</a>
                             </div>
                         </li>
@@ -158,10 +177,7 @@
 
                     <div class="credits ml-auto">
               <span class="copyright">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
+                ©made by Miguel Angel Angulo Rivera
               </span>
                     </div>
                 </div>

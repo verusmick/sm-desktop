@@ -11,6 +11,7 @@
   function DashboardController($localStorage, $timeout, $state) {
     const vm = this;
     vm.logout = logout;
+    vm.user = $localStorage.usr;
 
     // Scope variables go here:
     // vm.variable = 'value';
