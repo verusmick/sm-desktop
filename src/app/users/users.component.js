@@ -10,15 +10,20 @@
   /** @ngInject */
   function UsersController($state, $localStorage, UsersService) {
     const vm = this;
-    vm.ci = '';
-    vm.password = '';
+    // vm.ci = '';
 
-    vm.login = login;
+    vm.getUsersList=getUsersList;
 
     ////
+    function initialize() {
+      vm.getUsersList();
+    }
+    initialize();
 
-    function login() {
-
+    function getUsersList() {
+      UsersService.getAll().then(response=>{
+        console.log(response)
+      })
     }
   }
 })();

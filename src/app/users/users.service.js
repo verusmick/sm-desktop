@@ -4,12 +4,12 @@
   angular.module('app').factory('UsersService', UsersService);
   function UsersService($http, $q, API_ENDPOINT) {
     return {
-      login: login
+      getAll: getAll
     };
 
-    function login(authUserData) {
+    function getAll() {
       var deferred = $q.defer();
-      $http.post(API_ENDPOINT + '/users/authenticate', authUserData)
+      $http.get(API_ENDPOINT + '/users')
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
