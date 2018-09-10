@@ -24,6 +24,11 @@
         url: '/users',
         component: 'users',
         auth: true
+      })
+      .state('dashboard.newUser', {
+        url: '/newUser',
+        component: 'newUser',
+        auth: true
       });
 
     $urlRouterProvider.otherwise('/login');
