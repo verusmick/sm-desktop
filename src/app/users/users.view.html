@@ -1,69 +1,47 @@
-<!--<div class="row">-->
-    <!--<div class="col-md-12">-->
-        <!--<div class="card">-->
-            <!--<div class="card-header">-->
-                <!--<h4 class="card-title">Lista de Usuarios</h4>-->
-            <!--</div>-->
-            <!--<div class="card-body">-->
-
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
 <div class="col-md-12">
-
-        <h4>Lista de Usuarios</h4>
-        <div class="table-responsive">
-            <table class="table">
-                <thead class=" text-primary">
-                <th>
-                    #
-                </th>
-                <th>
-                    Nombre
-                </th>
-                <th>
-                    CI
-                </th>
-                <th class="text-center">
-                    Acciones
-                </th>
-                </thead>
-                <tbody>
-                <tr ng-repeat="users in vm.useersList">
-                    <td>
-                        {{$index}}
-                    </td>
-                    <td>
-                        {{users.firstName}}&nbsp;{{users.secondName}}&nbsp;{{users.firstSurname}}&nbsp;{{secondSurname}}
-                    </td>
-                    <td>
-                        {{users.ci}}
-                    </td>
-                    <td class="text-center">
-                        <!--<button type="button" rel="tooltip" class="btn btn-info btn-icon btn-sm " data-original-title="" title="">-->
-                        <!--<i class="fa fa-user"></i>-->
-                        <!--</button>-->
-                        <button type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm " data-original-title="" title="">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                        <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm " data-original-title="" title="">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                    <!--<td class="text-center">-->
-                    <!--<button type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm   btn-neutral  " data-original-title="" title="">-->
-                    <!--<i class="fa fa-edit"></i>-->
-                    <!--</button>-->
-                    <!--<button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm   btn-neutral  " data-original-title="" title="">-->
-                    <!--<i class="nc-icon nc-simple-remove"></i>-->
-                    <!--</button>-->
-                    <!--</td>-->
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-
+    <h4>Lista de Usuarios</h4>
+    <div class="table-responsive">
+        <table class="table">
+            <thead class=" text-primary">
+            <th>
+                #
+            </th>
+            <th>
+                Nombre
+            </th>
+            <th>
+                CI
+            </th>
+            <th class="text-center">
+                Acciones
+            </th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in vm.useersList">
+                <td>
+                    {{$index}}
+                </td>
+                <td>
+                    {{user.firstName}}&nbsp;{{user.secondName}}&nbsp;{{user.firstSurname}}&nbsp;{{user.secondSurname}}
+                </td>
+                <td>
+                    {{user.ci}}
+                </td>
+                <td class="text-center">
+                    <button type="button" rel="tooltip"
+                            class="btn btn-success btn-icon btn-sm "
+                            data-original-title="" title="">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button type="button" rel="tooltip"
+                            class="btn btn-danger btn-icon btn-sm "
+                            data-original-title="" title=""
+                            ng-click="vm.openRemoveUserModal(user)">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
