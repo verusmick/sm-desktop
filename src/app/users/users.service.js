@@ -5,7 +5,8 @@
   function UsersService($http, $q, API_ENDPOINT) {
     return {
       getAll: getAll,
-      deleteUser: deleteUser
+      deleteUser: deleteUser,
+      createUser: createUser
     };
 
     function getAll() {
@@ -21,7 +22,18 @@
 
     function deleteUser(idUser) {
       var deferred = $q.defer();
-      $http.delete(API_ENDPOINT + '/users/'+idUser)
+      $http.delete(API_ENDPOINT + '/users/' + idUser)
+        .then(function (response) {
+          deferred.resolve(response.data);
+        }, function (response) {
+          deferred.reject(response);
+        })
+      return deferred.promise;
+    }
+
+    function createUser(newUserBody) {
+      var deferred = $q.defer();
+      $http.post(API_ENDPOINT + '/users', newUserBody)
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
