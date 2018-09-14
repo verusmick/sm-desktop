@@ -36,27 +36,49 @@
                 </div>
             </div>
             <ul class="nav">
-                <li ui-sref-active="active">
-                    <a ui-sref="dashboard.home">
-                        <i class="nc-icon nc-bank"></i>
-                        <p>Dashboard</p>
+                <!--<li ui-sref-active="active">-->
+                    <!--<a ui-sref="dashboard.sellersTrack">-->
+                        <!--<i class="nc-icon nc-pin-3"></i>-->
+                        <!--&lt;!&ndash;<p>Rastreo / GPS</p>&ndash;&gt;-->
+                        <!--<p>Geolocalizacion</p>-->
+                    <!--</a>-->
+                <!--</li>-->
+                <li>
+                    <!--<a data-toggle="collapse" data-target="#GPSpages" class="collapsed" aria-expanded="false">-->
+                        <!--<i class="nc-icon nc-pin-3"></i>-->
+                        <!--<p>-->
+                            <!--&lt;!&ndash;<p>Rastreo / GPS</p>&ndash;&gt;-->
+                            <!--<p>Geolocaliz</p>-->
+                            <!--<b class="caret"></b>-->
+                        <!--</p>-->
+                    <!--</a>-->
+                    <a data-toggle="collapse" data-target="#GPSpages" class="collapsed" aria-expanded="true">
+                        <i class="nc-icon nc-pin-3"></i>
+                        <p>
+                            Geolocalización
+                            <b class="caret"></b>
+                        </p>
                     </a>
-                </li>
-                <li ui-sref-active="active">
-                    <a>
-                        <i class="nc-icon nc-single-02"></i>
-                        <p>Users</p>
-                    </a>
+                    <div class="collapse show" id="GPSpages" style="">
+                        <ul class="nav">
+                            <li ui-sref-active="active">
+                                <a ui-sref="dashboard.sellersTrack">
+                                    <span class="sidebar-mini-icon">VV</span>
+                                    <span class="sidebar-normal"> Visitadores / Vendedores </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li>
-                    <a data-toggle="collapse" data-target="#pagesExamples" class="collapsed" aria-expanded="false">
+                    <a data-toggle="collapse" data-target="#userPages" class="collapsed" aria-expanded="false">
                         <i class="fa fa-users"></i>
                         <p>
                             Usuarios
                             <b class="caret"></b>
                         </p>
                     </a>
-                    <div class="collapse" id="pagesExamples" style="">
+                    <div class="collapse" id="userPages" style="">
                         <ul class="nav">
                             <li ui-sref-active="active">
                                 <a ui-sref="dashboard.users">
@@ -72,6 +94,12 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="dashboard.home">
+                        <i class="nc-icon nc-single-02"></i>
+                        <p>Users</p>
+                    </a>
                 </li>
 
                 <!--<li class="active-pro">-->

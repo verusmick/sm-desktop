@@ -29,6 +29,11 @@
         url: '/newUser',
         component: 'newUser',
         auth: true
+      })
+      .state('dashboard.sellersTrack', {
+        url: '/sellersTrack',
+        component: 'sellersTrack',
+        auth: true
       });
 
     $urlRouterProvider.otherwise('/login');

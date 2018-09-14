@@ -26,8 +26,7 @@
       LoginService.login(authUserData).then(function (response) {
         $localStorage['usr'] = response.data.user;
         $localStorage['tk'] = response.data.token;
-
-        $state.go('dashboard.home');
+        $state.go('dashboard.sellersTrack');
       }).catch(function () {
 
       });
