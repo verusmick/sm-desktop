@@ -34,6 +34,11 @@
         url: '/sellersTrack',
         component: 'sellersTrack',
         auth: true
+      })
+      .state('dashboard.sellersPerDay', {
+        url: '/sellersPerDay',
+        component: 'sellersPerDay',
+        auth: true
       });
 
     $urlRouterProvider.otherwise('/login');
