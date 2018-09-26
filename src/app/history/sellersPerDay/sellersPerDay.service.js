@@ -9,7 +9,7 @@
 
     function getAll() {
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/users')
+      $http.get(API_ENDPOINT + '/history/sellers')
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
