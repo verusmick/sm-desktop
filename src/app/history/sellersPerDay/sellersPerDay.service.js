@@ -7,9 +7,10 @@
       getAll: getAll
     };
 
-    function getAll() {
+    function getAll(daySelected) {
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/history/sellers')
+      daySelected = daySelected.toISOString().split("T")[0]
+      $http.get(API_ENDPOINT + '/history/sellers?since='+daySelected+'&until='+daySelected)
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {

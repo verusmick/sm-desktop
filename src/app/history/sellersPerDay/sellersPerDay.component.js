@@ -10,6 +10,8 @@
   /** @ngInject */
   function sellersPerDayController(SellersPerDayService) {
     const vm = this;
+    vm.daySelected;
+    vm.getAll = getAll;
 
     let map;
 
@@ -22,21 +24,14 @@
     /////
 
     function initialize() {
-      getAll().then(function () {
-        map = new google.maps.Map(document.getElementById('map'), mapOptions);
-        var roadTrip = new google.maps.Polyline({
-          path: roadTripCoordinates,
-          strokeColor: '#FFFF1',
-          strokeOpacity: 1.0,
-          strokeWeight: 2
-        });
-        roadTrip.setMap(map);
-      });
+      map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
     }
 
-
     function getAll() {
-      return SellersPerDayService.getAll().then(function (response) {
+      console.log(vm.daySelected);
+      if(!vm.daySelected)return false;
+      return SellersPerDayService.getAll(vm.daySelected).then(function (response) {
         console.log('----->', response);
         _.each(response, (value, key) => {
           if (parseFloat(value.latitude) && parseFloat(value.longitude)) {
@@ -44,8 +39,15 @@
               {lat: parseFloat(value.latitude), lng: parseFloat(value.longitude)}
             )
           }
-        })
-        // roadTripCoordinates = response;
+        });
+
+        let roadTrip = new google.maps.Polyline({
+          path: roadTripCoordinates,
+          strokeColor: '#FFFF1',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+        roadTrip.setMap(map);
       })
     }
 
