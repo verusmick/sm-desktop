@@ -48,8 +48,7 @@
     }
 
     function removeUser() {
-      console.log('removeUser')
-      var userId = vm.userSelected.ci.slice(0, -2);
+      var userId = vm.userSelected.ci;
       UsersService.deleteUser(userId).then(vm.getUsersList).then(function () {
         vm.closeRemoveUserModal();
       })

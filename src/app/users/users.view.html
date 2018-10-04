@@ -3,15 +3,7 @@
     <div class="table-responsive">
         <table class="table">
             <thead class=" text-primary">
-            <th>
-                #
-            </th>
-            <th>
-                Nombre
-            </th>
-            <th>
-                CI
-            </th>
+            <th>#</th> <th>Nombre</th> <th>CI</th> <th>Nacido en</th><th>Tipo de Usuario</th>
             <th class="text-center">
                 Acciones
             </th>
@@ -26,6 +18,12 @@
                 </td>
                 <td>
                     {{user.ci}}
+                </td>
+                <td>
+                    {{user.bornedIn}}
+                </td>
+                <td>
+                    {{user.role}}
                 </td>
                 <td class="text-center">
                     <button type="button" rel="tooltip"
