@@ -22,7 +22,6 @@
       cellphone: '',
     };
 
-
     vm.createNewUser = createNewUser;
 
     ////
