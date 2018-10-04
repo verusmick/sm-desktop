@@ -26,7 +26,6 @@
 
     function getUsersList() {
       UsersService.getAll().then(response => {
-        // console.log(response.users)
         vm.useersList = response.data.users;
       })
     }
