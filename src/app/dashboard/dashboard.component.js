@@ -12,6 +12,52 @@
     const vm = this;
     vm.logout = logout;
     vm.user = $localStorage.usr;
+    vm.menu = [
+      {
+        id: 'GPSpages',
+        name: 'Geolocalización',
+        expanded: true,
+        icon: 'nc-icon nc-pin-3',
+        childs: [
+          {
+            abbrev: 'VV',
+            name: 'Visitadores / Vendedores',
+            uiRef: 'dashboard.sellersTrack'
+          }
+        ]
+      },
+      {
+        id: 'userPages',
+        name: 'Usuarios',
+        expanded: false,
+        icon: 'fa fa-users',
+        childs: [
+          {
+            abbrev: 'LU',
+            name: 'Lista De Usuarios',
+            uiRef: 'dashboard.users'
+          },
+          {
+            abbrev: 'NU',
+            name: 'Nuevo Usuario',
+            uiRef: 'dashboard.newUser'
+          }
+        ]
+      },
+      {
+        id: 'historyPages',
+        name: 'Historial',
+        expanded: false,
+        icon: 'fa fa-history',
+        childs: [
+          {
+            abbrev: 'VVD',
+            name: 'Visitador/Vendedor por dia',
+            uiRef: 'dashboard.sellersPerDay'
+          }
+        ]
+      }
+    ]
 
     // Scope variables go here:
     // vm.variable = 'value';
@@ -40,7 +86,6 @@
       } else {
         $('html').addClass('perfect-scrollbar-off');
       }
-
     }
 
     $(document).ready(function () {
@@ -186,13 +231,17 @@
       }
     };
 
+    function parseModules() {
+      console.log($localStorage['usr'].resources)
+    }
+
     initialize();
 
     /////end  paper dashboard functions
     function logout() {
       delete $localStorage['usr'];
       delete $localStorage['tk'];
-      $timeout(function(){
+      $timeout(function () {
         $state.go('login');
       }, 200)
     }

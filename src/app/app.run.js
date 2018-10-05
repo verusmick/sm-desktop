@@ -19,7 +19,10 @@
         $state.go('login');
         return false;
       }else if(tranTo.name ==='login' && $localStorage['tk']){
-        $state.go('dashboard.home');
+        $state.go('dashboard');
+        return false;
+      }else if(tranTo.resourceName && !_.includes($localStorage['usr'].resources,tranTo.resourceName)){
+        $state.go('dashboard');
         return false;
       }
     });

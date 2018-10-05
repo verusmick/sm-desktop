@@ -36,90 +36,36 @@
                 </div>
             </div>
             <ul class="nav">
+                <span ng-repeat="item in vm.menu">
+                    <li ui-sref-active="active" ng-if="item.childs.length === 0">
+                        <a ui-sref="dashboard.home">
+                            <i class="nc-icon nc-single-02"></i>
+                            <p>Users</p>
+                        </a>
+                    </li>
+                    <li ng-if="item.childs.length > 0">
+                        <a data-toggle="collapse" data-target="#{{item.id}}" class="collapsed" aria-expanded="{{item.expanded}}">
+                            <i class="{{item.icon}}"></i>
+                            <p>{{item.name}}<b class="caret"></b> </p>
+                        </a>
+                        <div class="collapse {{item.expanded? 'show':''}}" id="{{item.id}}">
+                            <ul class="nav">
+                                <li ui-sref-active="active" ng-repeat="child in item.childs">
+                                    <a ui-sref="{{child.uiRef}}">
+                                        <span class="sidebar-mini-icon">{{child.abbrev}}</span>
+                                        <span class="sidebar-normal">{{child.name}}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </span>
                 <!--<li ui-sref-active="active">-->
-                    <!--<a ui-sref="dashboard.sellersTrack">-->
-                        <!--<i class="nc-icon nc-pin-3"></i>-->
-                        <!--&lt;!&ndash;<p>Rastreo / GPS</p>&ndash;&gt;-->
-                        <!--<p>Geolocalizacion</p>-->
+                    <!--<a ui-sref="dashboard.home">-->
+                        <!--<i class="nc-icon nc-single-02"></i>-->
+                        <!--<p>Users</p>-->
                     <!--</a>-->
                 <!--</li>-->
-                <li>
-                    <!--<a data-toggle="collapse" data-target="#GPSpages" class="collapsed" aria-expanded="false">-->
-                        <!--<i class="nc-icon nc-pin-3"></i>-->
-                        <!--<p>-->
-                            <!--&lt;!&ndash;<p>Rastreo / GPS</p>&ndash;&gt;-->
-                            <!--<p>Geolocaliz</p>-->
-                            <!--<b class="caret"></b>-->
-                        <!--</p>-->
-                    <!--</a>-->
-                    <a data-toggle="collapse" data-target="#GPSpages" class="collapsed" aria-expanded="true">
-                        <i class="nc-icon nc-pin-3"></i>
-                        <p>
-                            Geolocalización
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div class="collapse show" id="GPSpages" style="">
-                        <ul class="nav">
-                            <li ui-sref-active="active">
-                                <a ui-sref="dashboard.sellersTrack">
-                                    <span class="sidebar-mini-icon">VV</span>
-                                    <span class="sidebar-normal"> Visitadores / Vendedores </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <a data-toggle="collapse" data-target="#userPages" class="collapsed" aria-expanded="false">
-                        <i class="fa fa-users"></i>
-                        <p>
-                            Usuarios
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div class="collapse" id="userPages" style="">
-                        <ul class="nav">
-                            <li ui-sref-active="active">
-                                <a ui-sref="dashboard.users">
-                                    <span class="sidebar-mini-icon">LU</span>
-                                    <span class="sidebar-normal"> Lista De Usuarios </span>
-                                </a>
-                            </li>
-                            <li ui-sref-active="active">
-                                <a ui-sref="dashboard.newUser">
-                                    <span class="sidebar-mini-icon">NU</span>
-                                    <span class="sidebar-normal"> Nuevo Usuario </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li>
-                    <a data-toggle="collapse" data-target="#reportPages" class="collapsed" aria-expanded="false">
-                        <i class="fa fa-history"></i>
-                        <p>
-                            Historial
-                            <b class="caret"></b>
-                        </p>
-                    </a>
-                    <div class="collapse" id="reportPages" style="">
-                        <ul class="nav">
-                            <li ui-sref-active="active">
-                                <a ui-sref="dashboard.sellersPerDay">
-                                    <span class="sidebar-mini-icon">VVD</span>
-                                    <span class="sidebar-normal">Visitador/Vendedor por dia</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="dashboard.home">
-                        <i class="nc-icon nc-single-02"></i>
-                        <p>Users</p>
-                    </a>
-                </li>
 
                 <!--<li class="active-pro">-->
                 <!--<a href="./upgrade.html">-->
