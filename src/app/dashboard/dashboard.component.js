@@ -11,6 +11,7 @@
   function DashboardController($localStorage, $timeout, $state) {
     const vm = this;
     vm.logout = logout;
+    vm.verifyResource = verifyResource;
     vm.user = $localStorage.usr;
     vm.menu = [
       {
@@ -22,7 +23,8 @@
           {
             abbrev: 'VV',
             name: 'Visitadores / Vendedores',
-            uiRef: 'dashboard.sellersTrack'
+            uiRef: 'dashboard.sellersTrack',
+            resourceCode: 'desk_geoSellers'
           }
         ]
       },
@@ -31,6 +33,7 @@
         name: 'Usuarios',
         expanded: false,
         icon: 'fa fa-users',
+        resourceCode: 'desk_geoSellers',
         childs: [
           {
             abbrev: 'LU',
@@ -53,7 +56,8 @@
           {
             abbrev: 'VVD',
             name: 'Visitador/Vendedor por dia',
-            uiRef: 'dashboard.sellersPerDay'
+            uiRef: 'dashboard.sellersPerDay',
+            resourceCode: 'desk_historyPerDaySellers'
           }
         ]
       }
@@ -231,9 +235,23 @@
       }
     };
 
-    function parseModules() {
-      console.log($localStorage['usr'].resources)
-    }
+    function verifyResource(item) {
+      let resources = $localStorage['usr'].resources;
+      if (item.resourceCode && _.includes(resources, item.resourceCode)) {
+        item['show'] = true
+      } else if (item.childs && item.childs.length > 0) {
+        let flagShowItem = true;
+        _.each(item.childs, child => {
+          child['show'] = _.includes(resources, child.resourceCode)
+          if (flagShowItem && child['show']) {
+            item['show'] = true;
+            flagShowItem = false;
+          }
+        })
+      } else {
+        item['show'] = false
+      }
+    };
 
     initialize();
 

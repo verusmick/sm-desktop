@@ -37,13 +37,15 @@
             </div>
             <ul class="nav">
                 <span ng-repeat="item in vm.menu">
-                    <li ui-sref-active="active" ng-if="item.childs.length === 0">
+                    <li ui-sref-active="active"
+                        ng-if="item.childs.length === 0 && item.show">
                         <a ui-sref="dashboard.home">
                             <i class="nc-icon nc-single-02"></i>
                             <p>Users</p>
                         </a>
                     </li>
-                    <li ng-if="item.childs.length > 0">
+                    <li ng-init="vm.verifyResource(item)"
+                        ng-show="item.childs.length > 0 && item.show">
                         <a data-toggle="collapse" data-target="#{{item.id}}" class="collapsed" aria-expanded="{{item.expanded}}">
                             <i class="{{item.icon}}"></i>
                             <p>{{item.name}}<b class="caret"></b> </p>
