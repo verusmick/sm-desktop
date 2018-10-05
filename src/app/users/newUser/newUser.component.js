@@ -16,32 +16,47 @@
       firstSurname: '',
       secondSurname: '',
       ciNumber: '',
-      ciExtended: '',
+      bornedIn: '',
       password: '',
       passwordRepeat: '',
       cellphone: '',
+      role: {}
     };
+    vm.roles = [];
+    vm.citiesOption = ['La Paz', 'Oruro', 'Potosi', 'Cochabamba', 'Santa Cruz', 'Beni', 'Pando', 'Tarija', 'Chuquisaca'];
 
     vm.createNewUser = createNewUser;
 
     ////
+    function initialize() {
+      UsersService.getAllRoles().then(response => {
+        vm.roles = response.data.roles
+      })
+    }
 
     function createNewUser() {
-      console.log(vm.newUserModel)
-      let newUserBody = {
-        firstName: vm.newUserModel.firstName,
-        secondName: vm.newUserModel.secondName,
-        firstSurname: vm.newUserModel.firstSurname,
-        secondSurname: vm.newUserModel.secondSurname,
-        ci: vm.newUserModel.ciNumber + vm.newUserModel.ciExtended,
-        password: vm.newUserModel.password,
-        cellphone: vm.newUserModel.cellphone,
-      };
+      let newUserBody = parseBeforeToSave(vm.newUserModel);
       UsersService.createUser(newUserBody).then(function (response) {
         $state.go('dashboard.users');
       }).catch(function () {
 
       });
     }
+
+    function parseBeforeToSave(userObj) {
+      return {
+        firstName: userObj.firstName,
+        secondName: userObj.secondName,
+        firstSurname: userObj.firstSurname,
+        secondSurname: userObj.secondSurname,
+        ci: userObj.ciNumber,
+        bornedIn: userObj.bornedIn,
+        password: userObj.password,
+        cellphone: userObj.cellphone,
+        idRole: userObj.role.idRole
+      };
+    }
+
+    initialize();
   }
 })();

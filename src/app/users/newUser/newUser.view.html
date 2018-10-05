@@ -45,9 +45,11 @@
                 </div>
                 <div class="col-md-6 pl-1">
                     <div class="form-group">
-                        <label>Extendida En*</label>
-                        <input type="text" class="form-control" placeholder="Last Name"
-                               ng-model="vm.newUserModel.ciExtended">
+                        <label>Ciudad De Nacimiento*</label>
+                        <select  class="form-control"
+                                 ng-model="vm.newUserModel.bornedIn"
+                                 ng-options="city for city in vm.citiesOption">
+                        </select>
                     </div>
                 </div>
             </div>
@@ -68,13 +70,22 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-6 pl-1">
                     <div class="form-group">
                         <label>Número de teléfono Celular</label>
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Número de teléfono Celular"
                                    ng-model="vm.newUserModel.cellphone">
                         </div>
+                    </div>
+                </div>
+                <div class="col-md-6 pl-1">
+                    <div class="form-group">
+                        <label>Ciudad De Nacimiento*</label>
+                        <select  class="form-control"
+                                 ng-model="vm.newUserModel.role"
+                                 ng-options="role.name for  role in vm.roles">
+                        </select>
                     </div>
                 </div>
             </div>
@@ -84,9 +95,10 @@
                             ng-disabled="!vm.newUserModel.firstName ||
                                          !vm.newUserModel.firstSurname||
                                          !vm.newUserModel.ciNumber||
-                                         !vm.newUserModel.ciExtended||
+                                         !vm.newUserModel.bornedIn||
                                          !vm.newUserModel.password||
-                                         !vm.newUserModel.passwordRepeat"
+                                         !vm.newUserModel.passwordRepeat ||
+                                         !vm.newUserModel.role.idRole"
                             ng-click="vm.createNewUser()">
                         Guardar
                     </button>

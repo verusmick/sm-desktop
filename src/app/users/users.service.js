@@ -6,7 +6,8 @@
     return {
       getAll: getAll,
       deleteUser: deleteUser,
-      createUser: createUser
+      createUser: createUser,
+      getAllRoles: getAllRoles
     };
 
     function getAll() {
@@ -32,8 +33,19 @@
     }
 
     function createUser(newUserBody) {
-      var deferred = $q.defer();
+      let deferred = $q.defer();
       $http.post(API_ENDPOINT + '/users', newUserBody)
+        .then(function (response) {
+          deferred.resolve(response.data);
+        }, function (response) {
+          deferred.reject(response);
+        })
+      return deferred.promise;
+    }
+
+    function getAllRoles() {
+      let deferred = $q.defer();
+      $http.get(API_ENDPOINT + '/roles')
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
