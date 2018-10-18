@@ -53,7 +53,7 @@
         bornedIn: userObj.bornedIn,
         password: userObj.password,
         cellphone: userObj.cellphone,
-        idRole: userObj.role.idRole
+        roleId: userObj.role.roleId
       };
     }
 
