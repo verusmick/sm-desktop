@@ -4,11 +4,12 @@
             <div class="card-header">
                 <h6 class="card-title">Visitadores/Vendedores</h6>
             </div>
+
             <div class="card-body">
                 <ul class="list-unstyled team-members">
-                    <li>
+                    <li ng-repeat="seller  in  vm.sellersList">
                         <div class="row">
-                            <div class="col-md-7 col-7">DJ Khaled<br/>
+                            <div class="col-md-7 col-7">{{seller.firstName}}&nbsp;{{seller.firstSurname}}<br/>
                                 <span class="text-muted"><small>Offline</small></span>
                             </div>
                             <div class="col-md-3 col-3 text-right">

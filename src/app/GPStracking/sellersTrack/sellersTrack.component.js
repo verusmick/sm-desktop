@@ -8,14 +8,19 @@
   });
 
   /** @ngInject */
-  function sellersTrackController(SellersTrackEvents) {
+  function sellersTrackController(SellersTrackEvents, SellersTrackService) {
     const vm = this;
+    vm.sellersList = [];
     var map;
     var marker = null; // Create a marker array to hold your markers
 
-    function initialize() {
-      initGoogleMaps();
+    vm.getSellers = getSellers;
 
+    ////////////
+
+    function initialize() {
+      vm.getSellers();
+      initGoogleMaps();
       SellersTrackEvents.start();
       SellersTrackEvents.addListeners({message: getCoordinates});
     }
@@ -49,6 +54,12 @@
         title: beach[0],
         zIndex: 33.3
       });
+    }
+
+    function getSellers() {
+      SellersTrackService.getSellers().then(response=>{
+        vm.sellersList = response.data.users
+      })
     }
 
     initialize();
