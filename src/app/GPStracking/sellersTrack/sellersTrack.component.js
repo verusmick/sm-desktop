@@ -20,11 +20,12 @@
     vm.getSellers = getSellers;
     vm.selectSeller = selectSeller;
     vm.selectAllSellers = selectAllSellers;
+    vm.refreshMarkerList = refreshMarkerList;
 
     ////////////
 
     function initialize() {
-      vm.getSellers().then(function(){
+      vm.getSellers().then(function () {
         vm.selectAllSellers(true);
       });
       initGoogleMaps();
@@ -35,8 +36,8 @@
     function initGoogleMaps() {
       var mapOptions = {
         zoom: 13.75,
-        center: new google.maps.LatLng(-16.5069882,-68.136291),
-        scrollwheel: false,
+        center: new google.maps.LatLng(-16.5069882, -68.136291),
+        scrollwheel: true,
         mapTypeId: 'roadmap'
       };
       map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -49,7 +50,7 @@
 
     function setMarkers(event) {
       let cacheMarkersList = [];
-      if(vm.markers.length > 0){
+      if (vm.markers.length > 0) {
         cacheMarkersList = _.filter(vm.markers, (marker) => {
           return marker.userId !== event.userId && findSellerInCollection(marker.userId);
         })
@@ -60,11 +61,10 @@
       _.forEach(vm.markers, (marker, index) => {
         vm.markers[index].setMap(null)
       });
-      vm.markers=[];
       vm.markers = cacheMarkersList;
     }
 
-    function findSellerInCollection (sellerId){
+    function findSellerInCollection(sellerId) {
       return _.find(vm.sellersSelectedList, seller => {
         return seller.ci === sellerId
       })
@@ -81,7 +81,7 @@
     }
 
     function getSellers() {
-      return SellersTrackService.getSellers().then(response=>{
+      return SellersTrackService.getSellers().then(response => {
         vm.sellersList = response.data.users
       })
     }
@@ -100,6 +100,20 @@
 
     function refreshSellersSelected() {
       vm.sellersSelectedList = _.filter(vm.sellersList, {'active': true});
+      vm.refreshMarkerList();
+    }
+
+    function refreshMarkerList() {
+      let cacheMarkersList = [];
+      if (vm.markers.length > 0) {
+        cacheMarkersList = _.filter(vm.markers, (marker) => {
+          return findSellerInCollection(marker.userId);
+        })
+      }
+      _.forEach(vm.markers, (marker, index) => {
+        vm.markers[index].setMap(null)
+      });
+      vm.markers = cacheMarkersList;
     }
 
     initialize();
