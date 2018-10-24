@@ -2,20 +2,32 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <h6 class="card-title">Visitadores/Vendedores</h6>
+                <div class="row">
+                <div class="col-md-7 col-7">
+                <h6 class="card-title">Visitadores</h6>
+                </div>
+                <div class="col-md-3 col-3 text-right" style="margin-top: 8px">
+                    <input class="form-check-input position-static"
+                           type="checkbox"
+                           ng-model="vm.selectAllSellersCheckbox"
+                           ng-change="vm.selectAllSellers()">
+                </div>
+                </div>
             </div>
-
             <div class="card-body">
                 <ul class="list-unstyled team-members">
                     <li ng-repeat="seller  in  vm.sellersList">
                         <div class="row">
-                            <div class="col-md-7 col-7">{{seller.firstName}}&nbsp;{{seller.firstSurname}}<br/>
+                            <div class="col-md-7 col-7">
+                                {{seller.firstName}}&nbsp;{{seller.firstSurname}}<br/>
                                 <span class="text-muted"><small>Offline</small></span>
                             </div>
                             <div class="col-md-3 col-3 text-right">
-                                <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                                        class="fa fa-envelope"></i></btn>
-                                <span class="form-check-sign"></span>
+                                <input class="form-check-input position-static"
+                                       type="checkbox"
+                                       ng-model="seller.active"
+                                       ng-change="vm.selectSeller(seller)"
+                                       ng-disabled="seller.isOffline">
                             </div>
                         </div>
                     </li>
