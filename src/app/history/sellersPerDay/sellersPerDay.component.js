@@ -10,29 +10,29 @@
   /** @ngInject */
   function sellersPerDayController(SellersPerDayService) {
     const vm = this;
-    vm.daySelected;
+    vm.sellersList = [];
+    vm.selectSeller = selectSeller;
+    vm.sellerSelected = {};
+    vm.daySelected = '';
     vm.getAll = getAll;
 
     let map;
 
-    var mapOptions = {
+    let mapOptions = {
       zoom: 18,
       center: new google.maps.LatLng(-16.489568, -68.1148525),
       mapTypeId: 'roadmap'
     };
-    var roadTripCoordinates = []
+    let roadTripCoordinates = [];
     /////
-
     function initialize() {
+      getSellers();
       map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
     }
 
     function getAll() {
-      console.log(vm.daySelected);
-      if(!vm.daySelected)return false;
+      if (!vm.daySelected)return false;
       return SellersPerDayService.getAll(vm.daySelected).then(function (response) {
-        console.log('----->', response);
         _.each(response, (value, key) => {
           if (parseFloat(value.latitude) && parseFloat(value.longitude)) {
             roadTripCoordinates.push(
@@ -51,6 +51,22 @@
       })
     }
 
+    function getSellers() {
+      return SellersPerDayService.getSellers().then(response => {
+        vm.sellersList = response;
+      })
+    }
+
+    function selectSeller(seller) {
+      _.forEach(vm.sellersList, obj => {
+        if (obj.ci !== seller.ci) {
+          obj.active = false;
+        }
+      });
+
+      vm.sellerSelected = seller.active? seller : {};
+      vm.daySelected = '';
+    }
     initialize();
   }
 })();

@@ -29,6 +29,20 @@
         ]
       },
       {
+        id: 'historyPages',
+        name: 'Historial',
+        expanded: false,
+        icon: 'fa fa-history',
+        childs: [
+          {
+            abbrev: 'VVD',
+            name: 'Visitador/Vendedor por dia',
+            uiRef: 'dashboard.sellersPerDay',
+            resourceCode: 'desk_historyPerDaySellers'
+          }
+        ]
+      },
+      {
         id: 'userPages',
         name: 'Usuarios',
         expanded: false,
@@ -44,20 +58,6 @@
             abbrev: 'NU',
             name: 'Nuevo Usuario',
             uiRef: 'dashboard.newUser'
-          }
-        ]
-      },
-      {
-        id: 'historyPages',
-        name: 'Historial',
-        expanded: false,
-        icon: 'fa fa-history',
-        childs: [
-          {
-            abbrev: 'VVD',
-            name: 'Visitador/Vendedor por dia',
-            uiRef: 'dashboard.sellersPerDay',
-            resourceCode: 'desk_historyPerDaySellers'
           }
         ]
       }

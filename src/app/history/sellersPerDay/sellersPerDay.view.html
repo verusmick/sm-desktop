@@ -2,19 +2,20 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                <h6 class="card-title">Seguimiento</h6>
+                <h6 class="card-title">Visitadores</h6>
             </div>
             <div class="card-body">
                 <ul class="list-unstyled team-members">
-                    <li>
+                    <li ng-repeat="seller  in  vm.sellersList">
                         <div class="row">
-                            <div class="col-md-7 col-7">DJ Khaled<br/>
-                                <span class="text-muted"><small>Offline</small></span>
+                            <div class="col-md-7 col-7">
+                                {{seller.firstName}}&nbsp;{{seller.firstSurname}}
                             </div>
                             <div class="col-md-3 col-3 text-right">
-                                <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i
-                                        class="fa fa-envelope"></i></btn>
-                                <span class="form-check-sign"></span>
+                                <input class="form-check-input position-static"
+                                       type="checkbox"
+                                       ng-model="seller.active"
+                                       ng-change="vm.selectSeller(seller)">
                             </div>
                         </div>
                     </li>
@@ -26,9 +27,14 @@
                 <div class="col-md-11 pr-1">
                     <div class="form-group">
                         <div class="form-group">
-                            <label>Primer Nombre*</label>
-                            <input type="date" name="bday" min="1000-01-01"
-                                   max="3000-12-31" class="form-control" ng-model="vm.daySelected">
+                            <label>Seleccione Dia*</label>
+                            <input type="date"
+                                   name="bday"
+                                   min="1000-01-01"
+                                   max="3000-12-31"
+                                   class="form-control"
+                                   ng-disabled="!vm.sellerSelected.active"
+                                   ng-model="vm.daySelected">
                         </div>
                     </div>
                 </div>
