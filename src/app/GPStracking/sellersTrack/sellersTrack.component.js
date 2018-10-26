@@ -73,7 +73,6 @@
     }
 
     function newMarker(obj) {
-      console.log(obj)
       let myLatLng = new google.maps.LatLng(obj.latitude, obj.longitude);
       return new google.maps.Marker({
         position: myLatLng,
