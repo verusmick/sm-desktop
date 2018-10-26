@@ -4,14 +4,14 @@
   angular.module('app').factory('SellersPerDayService', SellersPerDayService);
   function SellersPerDayService($http, $q, API_ENDPOINT) {
     return {
-      getAll: getAll,
+      getRoutesBySeller: getRoutesBySeller,
       getSellers: getSellers
     };
 
-    function getAll(daySelected) {
+    function getRoutesBySeller(daySelected, userId) {
       var deferred = $q.defer();
       daySelected = daySelected.toISOString().split("T")[0]
-      $http.get(API_ENDPOINT + '/history/sellers?since=' + daySelected + '&until=' + daySelected)
+      $http.get(API_ENDPOINT + '/history/sellers?since=' + daySelected + '&until=' + daySelected + '&userId=' + userId)
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {

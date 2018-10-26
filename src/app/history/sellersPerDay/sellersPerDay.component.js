@@ -14,7 +14,7 @@
     vm.selectSeller = selectSeller;
     vm.sellerSelected = {};
     vm.daySelected = '';
-    vm.getAll = getAll;
+    vm.getRoutesBySeller = getRoutesBySeller;
 
     let map;
 
@@ -30,9 +30,9 @@
       map = new google.maps.Map(document.getElementById('map'), mapOptions);
     }
 
-    function getAll() {
+    function getRoutesBySeller() {
       if (!vm.daySelected)return false;
-      return SellersPerDayService.getAll(vm.daySelected).then(function (response) {
+      return SellersPerDayService.getRoutesBySeller(vm.daySelected, vm.sellerSelected.ci).then(function (response) {
         _.each(response, (value, key) => {
           if (parseFloat(value.latitude) && parseFloat(value.longitude)) {
             roadTripCoordinates.push(
