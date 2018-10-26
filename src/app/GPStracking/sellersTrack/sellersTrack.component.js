@@ -55,7 +55,9 @@
           return marker.userId !== event.userId && findSellerInCollection(marker.userId);
         })
       }
-      if (findSellerInCollection(event.userId)) {
+      let userFind = findSellerInCollection(event.userId);
+      if (userFind) {
+        event['user'] = userFind;
         cacheMarkersList.push(newMarker(event));
       }
       _.forEach(vm.markers, (marker, index) => {
@@ -71,11 +73,23 @@
     }
 
     function newMarker(obj) {
+      console.log(obj)
       let myLatLng = new google.maps.LatLng(obj.latitude, obj.longitude);
       return new google.maps.Marker({
         position: myLatLng,
         map: map,
-        title: obj.title,
+        label:{
+          color: 'black',
+          fontWeight: 'bold',
+          text: obj.user.firstName,
+        },
+        icon: {
+          labelOrigin: new google.maps.Point(11, 50),
+          url: '../../../assets/images/markers/marker_red.png',
+          size: new google.maps.Size(22, 40),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(11, 40),
+        },
         userId: obj.userId
       });
     }
