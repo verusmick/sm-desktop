@@ -15,6 +15,32 @@
       $http.get(API_ENDPOINT + '/users')
         .then(function (response) {
           deferred.resolve(response.data);
+          let users = response.data;
+          let promises = [];
+          _.forEach(users, (user, index)=>{
+            var promise = getGPSStatus(user.userId);
+            promises.push(promise);
+          });
+          $q.all(promises).then(function (response) {
+            console.log('tete');
+            console.log(response)
+            // _.forEach(users, (user, index) => {
+            //
+            // })
+          });
+
+
+        }, function (response) {
+          deferred.reject(response);
+        })
+      return deferred.promise;
+    }
+
+    function getGPSStatus(userId) {
+      var deferred = $q.defer();
+      $http.delete(API_ENDPOINT + '/gpsTracking/gpsStatus/' + userId)
+        .then(function (response) {
+          deferred.resolve(response.data);
         }, function (response) {
           deferred.reject(response);
         })

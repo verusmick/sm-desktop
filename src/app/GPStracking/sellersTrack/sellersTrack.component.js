@@ -35,7 +35,7 @@
 
     function initGoogleMaps() {
       var mapOptions = {
-        zoom: 13.75,
+        zoom: 12,
         center: new google.maps.LatLng(-16.5069882, -68.136291),
         scrollwheel: true,
         mapTypeId: 'roadmap'
@@ -61,7 +61,7 @@
       _.forEach(vm.markers, (marker, index) => {
         vm.markers[index].setMap(null)
       });
-      vm.markers = cacheMarkersList;
+      setMarkerList(cacheMarkersList)
     }
 
     function findSellerInCollection(sellerId) {
@@ -82,14 +82,16 @@
 
     function getSellers() {
       return SellersTrackService.getSellers().then(response => {
-        vm.sellersList = response.data.users
+        vm.sellersList = response;
       })
     }
 
     function selectAllSellers(setValue) {
       vm.selectAllSellersCheckbox = setValue || vm.selectAllSellersCheckbox;
       _.forEach(vm.sellersList, function (seller) {
-        seller['active'] = vm.selectAllSellersCheckbox;
+        if (seller.gpsStatus.status === 'on') {
+          seller['active'] = vm.selectAllSellersCheckbox;
+        }
       });
       refreshSellersSelected();
     }
@@ -113,7 +115,18 @@
       _.forEach(vm.markers, (marker, index) => {
         vm.markers[index].setMap(null)
       });
-      vm.markers = cacheMarkersList;
+
+      setMarkerList(cacheMarkersList);
+    }
+
+    function setMarkerList(list) {
+      vm.markers = list;
+      _.forEach(vm.markers, (marker, index) => {
+        marker.addListener('click', function () {
+          map.setZoom(15);
+          map.setCenter(marker.getPosition());
+        });
+      });
     }
 
     initialize();
