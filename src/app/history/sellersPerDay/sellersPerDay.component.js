@@ -8,7 +8,7 @@
   });
 
   /** @ngInject */
-  function sellersPerDayController(SellersPerDayService, $filter) {
+  function sellersPerDayController(SellersPerDayService, $filter, ngDialog, $scope) {
     const vm = this;
     vm.sellersList = [];
     vm.selectSeller = selectSeller;
@@ -40,6 +40,9 @@
       }
       let roadTripCoordinates = [];
       return SellersPerDayService.getRoutesBySeller(vm.daySelected, vm.sellerSelected.ci).then(function (response) {
+        if(response.length === 0){
+          notExistCoordinatesWarning();
+        }
         _.each(response, (value, key) => {
           if (parseFloat(value.latitude) && parseFloat(value.longitude)) {
             roadTripCoordinates.push(
@@ -112,6 +115,16 @@
 
       vm.sellerSelected = seller.active? seller : {};
       vm.daySelected = '';
+    }
+
+    function notExistCoordinatesWarning() {
+      let notExistCoordinatesWarningModal = ngDialog.open({
+        disableAnimation: true,
+        closeByDocument: true,
+        showClose: true,
+        template: 'app/history/sellersPerDay/notExistCoordinates.modal.html',
+        scope: $scope
+      });
     }
     initialize();
   }
