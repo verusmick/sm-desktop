@@ -8,26 +8,27 @@
   });
 
   /** @ngInject */
-  function sellersPerDayController(SellersPerDayService) {
+  function sellersPerDayController(SellersPerDayService, $filter) {
     const vm = this;
     vm.sellersList = [];
     vm.selectSeller = selectSeller;
     vm.sellerSelected = {};
     vm.daySelected = '';
-    vm.getRoutesBySeller = getRoutesBySeller;
+    vm.markers = [];
     vm.roadTrip;
 
-    let map;
+    vm.getRoutesBySeller = getRoutesBySeller;
 
-    let mapOptions = {
-      zoom: 18,
-      center: new google.maps.LatLng(-16.489568, -68.1148525),
-      mapTypeId: 'roadmap'
-    };
+    let map;
 
     /////
     function initialize() {
       getSellers();
+      let mapOptions = {
+        zoom: 12,
+        center: new google.maps.LatLng(-16.5069882, -68.136291),
+        mapTypeId: 'roadmap'
+      };
       map = new google.maps.Map(document.getElementById('map'), mapOptions);
     }
 
@@ -42,7 +43,7 @@
         _.each(response, (value, key) => {
           if (parseFloat(value.latitude) && parseFloat(value.longitude)) {
             roadTripCoordinates.push(
-              {lat: parseFloat(value.latitude), lng: parseFloat(value.longitude)}
+              {lat: parseFloat(value.latitude), lng: parseFloat(value.longitude), userId:value.user_id, timestamp:value.timestamp}
             )
           }
         });
@@ -53,8 +54,47 @@
           strokeOpacity: 1.0,
           strokeWeight: 2
         });
+
         vm.roadTrip.setMap(map);
+        setMarkers(roadTripCoordinates[0], roadTripCoordinates[roadTripCoordinates.length - 1]);
       })
+    }
+
+    function setMarkers(firstCoord, lastCoord) {
+      _.forEach(vm.markers, (marker, index) => {
+        vm.markers[index].setMap(null)
+      });
+      vm.markers = [];
+      vm.test = $filter('date')(firstCoord.timestamp, 'medium');
+      vm.markers.push(newMarker(firstCoord));
+      vm.markers.push(newMarker(lastCoord));
+      _.forEach(vm.markers, (marker, index) => {
+        marker.addListener('click', function () {
+          map.setZoom(16);
+          map.setCenter(marker.getPosition());
+        });
+      });
+
+    }
+
+    function newMarker(obj) {
+      let myLatLng = new google.maps.LatLng(obj.lat, obj.lng);
+      return new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        label: {
+          color: 'black',
+          fontWeight: 'bold',
+          text: $filter('date')(obj.timestamp, 'medium'),
+        },
+        icon: {
+          labelOrigin: new google.maps.Point(11, 50),
+          url: '../../../assets/images/markers/marker_red.png',
+          size: new google.maps.Size(22, 40),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(11, 40),
+        }
+      });
     }
 
     function getSellers() {
