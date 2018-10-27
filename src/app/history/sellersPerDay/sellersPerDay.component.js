@@ -15,6 +15,7 @@
     vm.sellerSelected = {};
     vm.daySelected = '';
     vm.getRoutesBySeller = getRoutesBySeller;
+    vm.roadTrip;
 
     let map;
 
@@ -23,7 +24,7 @@
       center: new google.maps.LatLng(-16.489568, -68.1148525),
       mapTypeId: 'roadmap'
     };
-    let roadTripCoordinates = [];
+
     /////
     function initialize() {
       getSellers();
@@ -32,6 +33,11 @@
 
     function getRoutesBySeller() {
       if (!vm.daySelected)return false;
+      if(vm.roadTrip){
+        vm.roadTrip.setMap(null);
+        vm.roadTrip = {}
+      }
+      let roadTripCoordinates = [];
       return SellersPerDayService.getRoutesBySeller(vm.daySelected, vm.sellerSelected.ci).then(function (response) {
         _.each(response, (value, key) => {
           if (parseFloat(value.latitude) && parseFloat(value.longitude)) {
@@ -41,13 +47,13 @@
           }
         });
 
-        let roadTrip = new google.maps.Polyline({
+        vm.roadTrip = new google.maps.Polyline({
           path: roadTripCoordinates,
           strokeColor: '#FFFF1',
           strokeOpacity: 1.0,
           strokeWeight: 2
         });
-        roadTrip.setMap(map);
+        vm.roadTrip.setMap(map);
       })
     }
 
