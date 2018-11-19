@@ -41,6 +41,12 @@
         auth: true,
         resourceName: 'desk_geoSellers'
       })
+      .state('dashboard.orders', {
+        url: '/orders',
+        component: 'orders',
+        auth: true,
+        resourceName: 'desk_orders'
+      })
       .state('dashboard.sellersPerDay', {
         url: '/sellersPerDay',
         component: 'sellersPerDay',

@@ -37,11 +37,11 @@
             </div>
             <ul class="nav">
                 <span ng-repeat="item in vm.menu">
-                    <li ui-sref-active="active"
-                        ng-if="item.childs.length === 0 && item.show">
-                        <a ui-sref="dashboard.home">
-                            <i class="nc-icon nc-single-02"></i>
-                            <p>Users</p>
+                    <li ui-sref-active="active" ng-init="vm.verifyResource(item)"
+                        ng-if="item.childs.length === 0 && item.show" >
+                        <a ui-sref="{{item.uiRef}}">
+                            <i class="{{item.icon}}"></i>
+                            <p>{{item.name}}</p>
                         </a>
                     </li>
                     <li ng-init="vm.verifyResource(item)"

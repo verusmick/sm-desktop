@@ -43,6 +43,15 @@
         ]
       },
       {
+        id: 'orderPages',
+        name: 'Proformas',
+        expanded: false,
+        icon: 'nc-icon nc-paper',
+        resourceCode: 'desk_orders',
+        childs: [],
+        uiRef: 'dashboard.orders'
+      },
+      {
         id: 'userPages',
         name: 'Usuarios',
         expanded: false,
@@ -78,7 +87,6 @@
 
     var seq = 0, delays = 80, durations = 500;
     var seq2 = 0, delays2 = 80, durations2 = 500;
-
 
     function initialize() {
       var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
@@ -133,7 +141,6 @@
       });
 
     })
-
 
     $(document).on('click', '.navbar-toggle', function () {
       var $toggle = $(this);
@@ -249,9 +256,9 @@
           }
         })
       } else {
-        item['show'] = false
+        item['show'] = false;
       }
-    };
+    }
 
     initialize();
 
