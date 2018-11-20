@@ -5,7 +5,9 @@
   function OrdersService($http, $q, API_ENDPOINT) {
     return {
       getAllOrders: getAllOrders,
-      getAllUsers: getAllUsers
+      getAllUsers: getAllUsers,
+      updateOrder:updateOrder,
+      deleteOrder:deleteOrder
     };
 
     function getAllOrders() {
@@ -25,7 +27,7 @@
         deferred.resolve(parseUsers(response.data.data.users));
       }, function (response) {
         deferred.reject(response);
-      })
+      });
       return deferred.promise;
     }
 
@@ -35,6 +37,26 @@
         usersReturn[user.ci] = user
       });
       return usersReturn;
+    }
+
+    function updateOrder(){
+      var deferred = $q.defer();
+      $http.put(API_ENDPOINT + '/orders').then(function (response) {
+        deferred.resolve(parseUsers(response.data.data.users));
+      }, function (response) {
+        deferred.reject(response);
+      });
+      return deferred.promise;
+    }
+
+    function deleteOrder(orderId) {
+      var deferred = $q.defer();
+      $http.delete(API_ENDPOINT + '/orders/' + orderId).then(function (response) {
+        deferred.resolve(response);
+      }, function (error) {
+        deferred.reject(error);
+      });
+      return deferred.promise;
     }
   }
 })();
