@@ -74,7 +74,13 @@
 
     function deleteOrder() {
       OrdersService.deleteOrder(vm.orderSelected.orderId).then(function () {
-        vm.orders.splice(vm.indexSelected, 1);
+        let indexArray = null;
+        vm.orders.forEach((order, index) => {
+          if (order.orderId === vm.orderSelected.orderId) {
+            indexArray = index
+          }
+        });
+        vm.orders.splice(indexArray, 1);
         vm.closeRemoveOrderModal();
       })
     }
