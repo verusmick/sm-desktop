@@ -1,11 +1,20 @@
-<!--<div class="row">-->
 <div>
     <h4>Lista de Proformas</h4>
     <div class="col-md-12">
+        <div class="col-md-12 text-right">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                {{vm.filterSelected.label}}
+            </button>
+            <div class="dropdown-menu ">
+                <a class="dropdown-item"
+                   ng-repeat="filter in vm.filterItems"
+                   ng-click="vm.selectAOption(filter)">{{filter.label}}</a>
+            </div>
+        </div>
         <div class="card card-timeline card-plain">
             <div class="card-body">
                 <ul class="timeline timeline-simple">
-                    <li class="timeline-inverted" ng-repeat="order in vm.orders">
+                    <li class="timeline-inverted" ng-repeat="order in vm.orders | filter:{ registeredDate: vm.filterSelected.code } ">
                         <div class="timeline-badge"
                              ng-class="{'info':order.registeredDate , 'warning':!order.registeredDate}">
                             <i class="nc-icon"

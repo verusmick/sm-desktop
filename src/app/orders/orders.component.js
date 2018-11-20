@@ -12,6 +12,24 @@
     const vm = this;
     vm.orders = [];
     vm.users;
+    vm.filterItems =[
+      {
+        label:'Ver Todos',
+        code:undefined
+      },
+      {
+        label:'Ver solo Pendientes',
+        code:null
+      },
+      {
+        label:'Ver solo Registrados',
+        code:''
+      }
+    ];
+    vm.filterSelected ={
+      label:'Ver Todos',
+      code:undefined
+    };
 
     vm.orderSelected = {};
     vm.indexSelected = null;
@@ -20,6 +38,7 @@
     vm.deleteOrder = deleteOrder;
     vm.reviewOrder = reviewOrder;
     vm.changeToPendingOrder = changeToPendingOrder;
+    vm.selectAOption = selectAOption;
 
     vm.openRemoveOrderModal = openRemoveOrderModal;
     vm.closeRemoveOrderModal = closeRemoveOrderModal;
@@ -47,6 +66,10 @@
       item.registeredDate = null;
       OrdersService.updateOrder(item).then(_ => {
       })
+    }
+
+    function selectAOption(filter){
+      vm.filterSelected = filter
     }
 
     function deleteOrder() {
