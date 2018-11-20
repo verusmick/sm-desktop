@@ -11,11 +11,16 @@
   function OrdersController($state, $localStorage, OrdersService) {
     const vm = this;
     vm.orders = [];
+    vm.users;
 
     vm.getAllOrders = getAllOrders;
     ////
     function initialize() {
-      vm.getAllOrders();
+      OrdersService.getAllUsers().then(function (users) {
+        vm.users = users;
+        vm.getAllOrders();
+      })
+
     }
 
     function getAllOrders() {
