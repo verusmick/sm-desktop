@@ -18,6 +18,9 @@
 
     vm.getAllOrders = getAllOrders;
     vm.deleteOrder = deleteOrder;
+    vm.reviewOrder = reviewOrder;
+    vm.changeToPendingOrder = changeToPendingOrder;
+
     vm.openRemoveOrderModal = openRemoveOrderModal;
     vm.closeRemoveOrderModal = closeRemoveOrderModal;
     ////
@@ -34,9 +37,16 @@
       })
     }
 
-    function reviewOrder(index) {
+    function reviewOrder(item) {
+      item.registeredDate = new Date();
+      OrdersService.updateOrder(item).then(_=>{
+      })
+    }
 
-
+    function changeToPendingOrder(item) {
+      item.registeredDate = null;
+      OrdersService.updateOrder(item).then(_ => {
+      })
     }
 
     function deleteOrder() {

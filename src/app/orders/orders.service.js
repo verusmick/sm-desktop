@@ -2,12 +2,12 @@
   'use strict';
 
   angular.module('app').factory('OrdersService', OrdersService);
-  function OrdersService($http, $q, API_ENDPOINT) {
+  function OrdersService($http, $q, API_ENDPOINT, $localStorage) {
     return {
       getAllOrders: getAllOrders,
       getAllUsers: getAllUsers,
-      updateOrder:updateOrder,
-      deleteOrder:deleteOrder
+      updateOrder: updateOrder,
+      deleteOrder: deleteOrder
     };
 
     function getAllOrders() {
@@ -33,18 +33,18 @@
 
     function parseUsers(usersList) {
       let usersReturn = {};
-      _.forEach(usersList, (user, index)=>{
+      _.forEach(usersList, (user, index) => {
         usersReturn[user.ci] = user
       });
       return usersReturn;
     }
 
-    function updateOrder(){
+    function updateOrder(order) {
       var deferred = $q.defer();
-      $http.put(API_ENDPOINT + '/orders').then(function (response) {
-        deferred.resolve(parseUsers(response.data.data.users));
-      }, function (response) {
-        deferred.reject(response);
+      $http.put(API_ENDPOINT + '/orders', order, {headers: {userid: $localStorage['usr'].ci}}).then(function (response) {
+        deferred.resolve(response);
+      }, function (error) {
+        deferred.reject(error);
       });
       return deferred.promise;
     }

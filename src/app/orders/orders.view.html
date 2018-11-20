@@ -5,41 +5,11 @@
         <div class="card card-timeline card-plain">
             <div class="card-body">
                 <ul class="timeline timeline-simple">
-                    <!--<li class="timeline-inverted">-->
-                    <!--<div class="timeline-badge danger">-->
-                    <!--<i class="nc-icon nc-single-copy-04"></i>-->
-                    <!--</div>-->
-                    <!--<div class="timeline-panel">-->
-                    <!--<div class="timeline-heading">-->
-                    <!--<span class="badge badge-pill badge-danger">Some Title</span>-->
-                    <!--</div>-->
-                    <!--<div class="timeline-body">-->
-                    <!--<p>Wifey made the best Father's Day meal ever. So thankful so happy so blessed. Thank you for making my family We just had fun with the “future” theme !!! It was a fun night all together ... The always rude Kanye Show at 2am Sold Out Famous viewing @ Figueroa and 12th in downtown.</p>-->
-                    <!--</div>-->
-                    <!--<h6>-->
-                    <!--<i class="ti-time"></i> 11 hours ago via Twitter-->
-                    <!--</h6>-->
-                    <!--</div>-->
-                    <!--</li>-->
-                    <!--<li class="timeline-inverted">-->
-                    <!--<div class="timeline-badge success">-->
-                    <!--<i class="nc-icon nc-sun-fog-29"></i>-->
-                    <!--</div>-->
-                    <!--<div class="timeline-panel">-->
-                    <!--<div class="timeline-heading">-->
-                    <!--<span class="badge badge-pill badge-success">Another One</span>-->
-                    <!--</div>-->
-
-                    <!--<div class="timeline-body">-->
-                    <!--<p>Thank God for the support of my wife and real friends. I also wanted to point out that it’s the first album to go number 1 off of streaming!!! I love you Ellen and also my number one design rule of anything I do from shoes to music to homes is that Kim has to like it....</p>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</li>-->
                     <li class="timeline-inverted" ng-repeat="order in vm.orders">
                         <div class="timeline-badge"
                              ng-class="{'info':order.registeredDate , 'warning':!order.registeredDate}">
                             <i class="nc-icon"
-                               ng-class="{'nc-alert-circle-i':!order.registeredDate, 'nc-world-2':order.registeredDate}"></i>
+                               ng-class="{'nc-alert-circle-i':!order.registeredDate, 'nc-bookmark-2':order.registeredDate}"></i>
                         </div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
@@ -51,6 +21,7 @@
                             <h6>
                                 <i class="ti-time"></i> <b>Fecha de Creacion: {{order.orderDate |date:'medium' }}</b>
                             </h6>
+
                             <div class="timeline-body">
                                 <p><b>Cliente:</b> {{order.client.tipo}} &nbsp;{{order.client.razon_social}}</p>
                                 <p><b>Visitador:</b>
@@ -91,14 +62,15 @@
                                         <td><h5><b>Total:</b></h5></td>
                                         <td><h5><b>{{order.total}}</b></h5></td>
                                     </tr>
-
                                     </tbody>
                                 </table>
+                                <h6 ng-if="order.registeredDate">
+                                    <i class="ti-time"></i> <b>Fecha de Registro: {{order.registeredDate |date:'medium'
+                                    }}</b>
+                                </h6>
                             </div>
-                            <h6 ng-if="order.registeredDate">
-                                <i class="ti-time"></i> Fecha de Registro: {{order.registeredDate |date:'medium' }}
-                            </h6>
-                            <div class="timeline-footer" ng-if="!order.registeredDate">
+
+                            <div class="timeline-footer" style="margin-top: 3px">
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-round btn-info dropdown-toggle"
                                             data-toggle="dropdown" aria-expanded="false">
@@ -106,9 +78,12 @@
                                     </button>
                                     <div class="dropdown-menu" x-placement="bottom-start"
                                          style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                        <a class="dropdown-item" ng-click="reviewOrder(order, $index)"><b>Revisado</b></a>
+                                        <a class="dropdown-item" ng-if="!order.registeredDate"
+                                           ng-click="vm.reviewOrder(order, $index)">Cambiar estado a
+                                            <b>Registrado</b></a>
+                                        <a class="dropdown-item" ng-if="order.registeredDate"
+                                           ng-click="vm.changeToPendingOrder(order, $index)">Cambiar estado a <b>Pendiente</b></a>
                                         <a class="dropdown-item" ng-click="vm.openRemoveOrderModal(order, $index)">Eliminar</a>
-                                        <!--<a class="dropdown-item" href="#">Something else here</a>-->
                                     </div>
                                 </div>
                             </div>
