@@ -69,6 +69,40 @@
             uiRef: 'dashboard.newUser'
           }
         ]
+      },
+      {
+        id: 'reportsPages',
+        name: 'Reportes',
+        expanded: false,
+        icon: 'nc-icon nc-chart-bar-32',
+        resourceCode: 'desk_reports',
+        childs: [
+          {
+            abbrev: 'CV',
+            name: 'Coordenadas de Visitator',
+            uiRef: 'dashboard.reportCoordinatesSeller'
+          },
+          {
+            abbrev: 'GAV',
+            name: 'GPS Activado x Visitador',
+            uiRef: 'dashboard.users'
+          },
+          {
+            abbrev: 'U',
+            name: 'Usuarios',
+            uiRef: 'dashboard.users'
+          },
+          {
+            abbrev: 'MV',
+            name: 'Mejores Visitadores',
+            uiRef: 'dashboard.users'
+          },
+          {
+            abbrev: 'P',
+            name: 'Proformas',
+            uiRef: 'dashboard.users'
+          }
+        ]
       }
     ]
 

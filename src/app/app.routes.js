@@ -52,6 +52,12 @@
         component: 'sellersPerDay',
         auth: true,
         resourceName: 'desk_historyPerDaySellers'
+      })
+      .state('dashboard.reportCoordinatesSeller', {
+        url: '/reportCoordinatesSeller',
+        component: 'coordinatesSeller',
+        auth: true,
+        resourceName: 'desk_reports'
       });
 
     $urlRouterProvider.otherwise('/login');
