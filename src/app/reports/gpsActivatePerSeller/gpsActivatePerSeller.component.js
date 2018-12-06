@@ -10,13 +10,36 @@
   /** @ngInject */
   function gpsActivatePerSellerController(ReportsService) {
     const vm = this;
+    vm.sellerSelected = {};
+    vm.dateSince = '';
+    vm.dateUntil = '';
+    vm.sellersList = [];
+    vm.reportList = [];
+
+    vm.getSellers = getSellers;
+    vm.generateReport = generateReport;
+    vm.changeSeller = changeSeller;
 
 
     /////
     function initialize() {
-      ReportsService.getAllOrders().then(function(response){
-        console.log('init report gpsActivatePerSeller', response)
+      vm.getSellers();
+    }
+
+    function getSellers() {
+      ReportsService.getSellers().then(function (response) {
+        vm.sellersList = response;
       });
+    }
+
+    function generateReport() {
+      ReportsService.getStatusGpsPerSeller(vm.sellerSelected.ci, vm.dateSince, vm.dateUntil).then(response => {
+        vm.reportList = response.data;
+      });
+    }
+
+    function changeSeller() {
+      vm.reportList = [];
     }
 
     initialize();

@@ -84,7 +84,7 @@
           },
           {
             abbrev: 'GAV',
-            name: 'GPS Activado x Visitador',
+            name: 'Estado del GPS x Visitador',
             uiRef: 'dashboard.reportGpsActivatePerSeller'
           },
           {

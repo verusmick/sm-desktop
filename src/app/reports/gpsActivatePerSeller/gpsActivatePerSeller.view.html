@@ -1,56 +1,75 @@
-<div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <h6 class="card-title">Visitadores</h6>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled team-members">
-                    <li ng-repeat="seller  in  vm.sellersList">
-                        <div class="row">
-                            <div class="col-md-7 col-7">
-                                {{seller.firstName}}&nbsp;{{seller.firstSurname}}
-                            </div>
-                            <div class="col-md-3 col-3 text-right">
-                                <input class="form-check-input position-static"
-                                       type="checkbox"
-                                       ng-model="seller.active"
-                                       ng-change="vm.selectSeller(seller)">
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+<div class="col-md-12">
+    <h4>Reporte: Estado del GPS x Visitador</h4>
+    <div class="row">
+        <div class="col-md4 pr-1">
+            <div class="form-group">
+                <label>Seleccione Visitador*</label>
+                <select class="form-control"
+                        ng-model="vm.sellerSelected"
+                        ng-change="vm.changeSeller()"
+                        ng-options="seller.label for seller in vm.sellersList">
+                </select>
             </div>
         </div>
-        <form>
-            <div class="row">
-                <div class="col-md-11 pr-1">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label>Seleccione Dia*</label>
-                            <input type="date"
-                                   name="bday"
-                                   min="1000-01-01"
-                                   max="3000-12-31"
-                                   class="form-control"
-                                   ng-disabled="!vm.sellerSelected.active"
-                                   ng-model="vm.daySelected">
-                        </div>
-                    </div>
-                </div>
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Fecha Inicial</label>
+                <input type="date"
+                       name="bday"
+                       min="1000-01-01"
+                       max="3000-12-31"
+                       class="form-control"
+                       ng-disabled="!vm.sellerSelected.firstName"
+                       ng-model="vm.dateSince">
             </div>
-            <div class="row">
-                <div class="update ml-auto mr-auto">
-                    <button type="submit" class="btn btn-primary btn-round"
-                            ng-click="vm.getRoutesBySeller()" ng-disabled="!vm.daySelected">
-                        Guardar
-                    </button>
-                </div>
+        </div>
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Fecha Final</label>
+                <input type="date"
+                       name="bday"
+                       min="1000-01-01"
+                       max="3000-12-31"
+                       class="form-control"
+                       ng-disabled="!vm.sellerSelected.firstName"
+                       ng-model="vm.dateUntil">
             </div>
-        </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 pl-1">
+            <div>
+                <button class="btn btn-primary btn-round"}
+                        ng-disabled ="!vm.sellerSelected.firstName || !vm.dateSince || !vm.dateUntil"
+                        ng-click="vm.generateReport()">
+                    Generar Reporte
+                </button>
+            </div>
+        </div>
+        <div class="col-md-3 pl-1">
+            <div>
+                <button class="btn btn-primary btn-round"
+                        export-to-csv
+                        ng-disabled="vm.reportList.length === 0">
+                    Exportar a Excel
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div class="col-md-8">
-        <div id="map" class="map"></div>
+    <div class="table-responsive" ng-if="vm.reportList.length > 0">
+        <table class="table" id="#reportTable">
+            <thead class=" text-primary">
+            <th>#</th> <th>CI</th> <th>Estado</th><th>Fecha</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="estados in vm.reportList">
+                <td>{{$index +1}}</td>
+                <td>{{estados.user_id}}</td>
+                <td>{{estados.status}}</td>
+                <td>{{estados.timestamp| date : 'yyyy-MM-ddTHH:mm:ss'}}</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

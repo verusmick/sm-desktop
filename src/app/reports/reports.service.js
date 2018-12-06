@@ -6,7 +6,8 @@
   function ReportsService($http, $q, API_ENDPOINT) {
     return {
       getSellers: getSellers,
-      getCoordinatesReport: getCoordinatesReport
+      getCoordinatesReport: getCoordinatesReport,
+      getStatusGpsPerSeller:getStatusGpsPerSeller
     };
 
     function getSellers() {
@@ -29,6 +30,19 @@
       since = since.toISOString().split("T")[0];
       until = until.toISOString().split("T")[0];
       $http.get(API_ENDPOINT + '/history/sellers?since=' + since + '&until=' + until + '&userId=' + userId)
+        .then(function (response) {
+          deferred.resolve(response.data);
+        }, function (response) {
+          deferred.reject(response);
+        })
+      return deferred.promise;
+    }
+
+    function getStatusGpsPerSeller(userId, since, until) {
+      var deferred = $q.defer();
+      since = since.toISOString().split("T")[0];
+      until = until.toISOString().split("T")[0];
+      $http.get(API_ENDPOINT + '/reports/getStatusGpsPerSeller?since=' + since + '&until=' + until + '&userId=' + userId)
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
