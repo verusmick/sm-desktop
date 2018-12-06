@@ -58,6 +58,30 @@
         component: 'coordinatesSeller',
         auth: true,
         resourceName: 'desk_reports'
+      })
+      .state('dashboard.reportGpsActivatePerSeller', {
+        url: '/reportGpsActivatePerSeller',
+        component: 'gpsActivatePerSeller',
+        auth: true,
+        resourceName: 'desk_reports'
+      })
+      .state('dashboard.reportUsers', {
+        url: '/reportUsers',
+        component: 'usersReport',
+        auth: true,
+        resourceName: 'desk_reports'
+      })
+      .state('dashboard.reportBestSellers', {
+        url: '/reportBestSellers',
+        component: 'bestSellers',
+        auth: true,
+        resourceName: 'desk_reports'
+      })
+      .state('dashboard.reportOrdersReport', {
+        url: '/reportOrdersReport',
+        component: 'ordersReport',
+        auth: true,
+        resourceName: 'desk_reports'
       });
 
     $urlRouterProvider.otherwise('/login');

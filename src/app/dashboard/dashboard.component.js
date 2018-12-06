@@ -85,22 +85,22 @@
           {
             abbrev: 'GAV',
             name: 'GPS Activado x Visitador',
-            uiRef: 'dashboard.users'
+            uiRef: 'dashboard.reportGpsActivatePerSeller'
           },
           {
             abbrev: 'U',
             name: 'Usuarios',
-            uiRef: 'dashboard.users'
+            uiRef: 'dashboard.reportUsers'
           },
           {
             abbrev: 'MV',
             name: 'Mejores Visitadores',
-            uiRef: 'dashboard.users'
+            uiRef: 'dashboard.reportBestSellers'
           },
           {
             abbrev: 'P',
             name: 'Proformas',
-            uiRef: 'dashboard.users'
+            uiRef: 'dashboard.reportOrdersReport'
           }
         ]
       }

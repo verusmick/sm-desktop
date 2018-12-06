@@ -15,7 +15,7 @@
     /////
     function initialize() {
       ReportsService.getAllOrders().then(function(response){
-        console.log('init report', response)
+        console.log('init report coordinatesSeller', response)
       });
     }
 
