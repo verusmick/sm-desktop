@@ -26,7 +26,6 @@
     function generateReport() {
       ReportsService.bestSellers(vm.dateSince, vm.dateUntil).then(response => {
         vm.reportList = response;
-        console.log(vm.reportList);
       });
     }
 
