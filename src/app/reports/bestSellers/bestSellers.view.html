@@ -43,6 +43,16 @@
                 </button>
             </div>
         </div>
+        <div class="col-md-3 pl-1">
+            <div>
+                <button class="btn btn-primary btn-round"
+                        ng-click="vm.showChart()"
+
+                        ng-disabled="vm.reportList.length === 0">
+                    Ver Grafico
+                </button>
+            </div>
+        </div>
     </div>
 
     <div class="table-responsive" ng-if="vm.reportList.length > 0">
