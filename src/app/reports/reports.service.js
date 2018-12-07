@@ -10,7 +10,8 @@
       getStatusGpsPerSeller: getStatusGpsPerSeller,
       getRoles: getRoles,
       getUsers: getUsers,
-      bestSellers: bestSellers
+      bestSellers: bestSellers,
+      getOrders: getOrders
     };
 
     function getSellers() {
@@ -96,7 +97,9 @@
               });
               bestSellers.push({
                 user_id: index,
-                user:_.find(users,(item)=>{return item.ci===index}),
+                user: _.find(users, (item) => {
+                  return item.ci === index
+                }),
                 ordersCount: ordersCount,
                 orders: items,
                 totalAmount: totalAmount
@@ -107,6 +110,31 @@
             deferred.reject(response);
           });
       });
+
+      return deferred.promise;
+    }
+
+    function getOrders(since, until) {
+      let deferred = $q.defer();
+      since = since.toISOString().split("T")[0];
+      until = until.toISOString().split("T")[0];
+      let users = [];
+
+      getUsers().then(response => {
+        users = response;
+        $http.get(API_ENDPOINT + '/reports/orders?since=' + since + '&until=' + until).then(response => {
+          let list = response.data.data;
+          _.forEach(list, item => {
+            item['user'] = _.find(users, user => {
+              return user.ci === item.userId
+            })
+          })
+          deferred.resolve(list);
+        }, function (response) {
+          deferred.reject(response);
+        })
+
+      })
 
       return deferred.promise;
     }

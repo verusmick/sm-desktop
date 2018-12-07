@@ -1,56 +1,66 @@
-<div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-header">
-                <h6 class="card-title">Visitadores</h6>
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled team-members">
-                    <li ng-repeat="seller  in  vm.sellersList">
-                        <div class="row">
-                            <div class="col-md-7 col-7">
-                                {{seller.firstName}}&nbsp;{{seller.firstSurname}}
-                            </div>
-                            <div class="col-md-3 col-3 text-right">
-                                <input class="form-check-input position-static"
-                                       type="checkbox"
-                                       ng-model="seller.active"
-                                       ng-change="vm.selectSeller(seller)">
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+<div class="col-md-12">
+    <h4>Reporte: Proformas</h4>
+    <div class="row">
+        <div class="col-md-6 pl-1">
+            <div class="form-group">
+                <label>Fecha Inicial</label>
+                <input type="date"
+                       name="bday"
+                       min="1000-01-01"
+                       max="3000-12-31"
+                       class="form-control"
+                       ng-model="vm.dateSince">
             </div>
         </div>
-        <form>
-            <div class="row">
-                <div class="col-md-11 pr-1">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label>Seleccione Dia*</label>
-                            <input type="date"
-                                   name="bday"
-                                   min="1000-01-01"
-                                   max="3000-12-31"
-                                   class="form-control"
-                                   ng-disabled="!vm.sellerSelected.active"
-                                   ng-model="vm.daySelected">
-                        </div>
-                    </div>
-                </div>
+        <div class="col-md-6 pl-1">
+            <div class="form-group">
+                <label>Fecha Final</label>
+                <input type="date"
+                       name="bday"
+                       min="1000-01-01"
+                       max="3000-12-31"
+                       class="form-control"
+                       ng-model="vm.dateUntil">
             </div>
-            <div class="row">
-                <div class="update ml-auto mr-auto">
-                    <button type="submit" class="btn btn-primary btn-round"
-                            ng-click="vm.getRoutesBySeller()" ng-disabled="!vm.daySelected">
-                        Guardar
-                    </button>
-                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 pl-1">
+            <div>
+                <button class="btn btn-primary btn-round"}
+                        ng-disabled ="!vm.dateSince || !vm.dateUntil"
+                        ng-click="vm.generateReport()">
+                    Generar Reporte
+                </button>
             </div>
-        </form>
+        </div>
+        <div class="col-md-3 pl-1">
+            <div>
+                <button class="btn btn-primary btn-round"
+                        export-to-csv
+                        ng-disabled="vm.reportList.length === 0">
+                    Exportar a Excel
+                </button>
+            </div>
+        </div>
     </div>
 
-    <div class="col-md-8">
-        <div id="map" class="map"></div>
+    <div class="table-responsive" ng-if="vm.reportList.length > 0">
+        <table class="table" id="#reportTable">
+            <thead class=" text-primary">
+            <th>#</th> <th>Fecha de Creacion</th> <th>Visitador</th><th>Cliente</th> <th>Tipo de Pago</th><th>Estado</th><th>Total</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="orders in vm.reportList">
+                <td>{{$index +1}}</td>
+                <td>{{orders.orderDate| date : 'yyyy-MM-ddTHH:mm:ss'}}</td>
+                <td>{{orders.client.tipo+' '}}{{orders.client.razon_social}}</td>
+                <td>{{orders.user.firstName+' '}}{{orders.user.firstSurname}}</td>
+                <td>{{orders.payType===1? 'Contado':'Credito'}}</td>
+                <td>{{orders.registeredDate? 'Revisado':'Pendiente'}}</td>
+                <td>{{orders.total+' '}}Bs.</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>

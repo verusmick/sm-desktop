@@ -10,11 +10,21 @@
   /** @ngInject */
   function ordersReportController(ReportsService) {
     const vm = this;
+    vm.sellerSelected = {};
+    vm.dateSince = '';
+    vm.dateUntil = '';
+    vm.sellersList = [];
+    vm.reportList = [];
 
+    vm.generateReport = generateReport;
     /////
     function initialize() {
-      ReportsService.getAllOrders().then(function(response){
-        console.log('init report orders report', response)
+
+    }
+
+    function generateReport() {
+      ReportsService.getOrders(vm.dateSince, vm.dateUntil).then(response => {
+        vm.reportList = response;
       });
     }
 
