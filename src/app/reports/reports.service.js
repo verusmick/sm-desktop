@@ -7,9 +7,10 @@
     return {
       getSellers: getSellers,
       getCoordinatesReport: getCoordinatesReport,
-      getStatusGpsPerSeller:getStatusGpsPerSeller,
-      getRoles:getRoles,
-      getUsers:getUsers
+      getStatusGpsPerSeller: getStatusGpsPerSeller,
+      getRoles: getRoles,
+      getUsers: getUsers,
+      bestSellers: bestSellers
     };
 
     function getSellers() {
@@ -64,7 +65,7 @@
       return deferred.promise;
     }
 
-    function getUsers(){
+    function getUsers() {
       var deferred = $q.defer();
       $http.get(API_ENDPOINT + '/users')
         .then(function (response) {
@@ -72,6 +73,34 @@
         }, function (response) {
           deferred.reject(response);
         })
+      return deferred.promise;
+    }
+
+    function bestSellers(since, until) {
+      var deferred = $q.defer();
+      since = since.toISOString().split("T")[0];
+      until = until.toISOString().split("T")[0];
+      $http.get(API_ENDPOINT + '/reports/bestSellers?since=' + since + '&until=' + until)
+        .then(function (response) {
+          let sellerList = response.data.data;
+          let bestSellers = [];
+          sellerList = _.groupBy(sellerList, 'user_id')
+          _.forEach(sellerList, (items, index) => {
+            let ordersCount = items.length, totalAmount = 0;
+            _.forEach(items, (order, index) => {
+              totalAmount = totalAmount + order.total
+            });
+            bestSellers.push({
+              user_id: index,
+              ordersCount: ordersCount,
+              orders: items,
+              totalAmount: totalAmount
+            });
+          });
+          deferred.resolve(_.orderBy(bestSellers, ['totalAmount'], ['desc']));
+        }, function (response) {
+          deferred.reject(response);
+        });
       return deferred.promise;
     }
   }
