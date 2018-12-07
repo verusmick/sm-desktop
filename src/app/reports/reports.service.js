@@ -7,7 +7,9 @@
     return {
       getSellers: getSellers,
       getCoordinatesReport: getCoordinatesReport,
-      getStatusGpsPerSeller:getStatusGpsPerSeller
+      getStatusGpsPerSeller:getStatusGpsPerSeller,
+      getRoles:getRoles,
+      getUsers:getUsers
     };
 
     function getSellers() {
@@ -45,6 +47,28 @@
       $http.get(API_ENDPOINT + '/reports/getStatusGpsPerSeller?since=' + since + '&until=' + until + '&userId=' + userId)
         .then(function (response) {
           deferred.resolve(response.data);
+        }, function (response) {
+          deferred.reject(response);
+        })
+      return deferred.promise;
+    }
+
+    function getRoles() {
+      let deferred = $q.defer();
+      $http.get(API_ENDPOINT + '/roles')
+        .then(function (response) {
+          deferred.resolve(response.data.data.roles);
+        }, function (response) {
+          deferred.reject(response);
+        })
+      return deferred.promise;
+    }
+
+    function getUsers(){
+      var deferred = $q.defer();
+      $http.get(API_ENDPOINT + '/users')
+        .then(function (response) {
+          deferred.resolve(response.data.data.users);
         }, function (response) {
           deferred.reject(response);
         })
