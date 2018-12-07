@@ -51,13 +51,13 @@
             <th>Posicion</th> <th>Nombre</th> <th>CI</th> <th>N° de Proformas</th><th>Monto Total</th>
             </thead>
             <tbody>
-            <tr ng-repeat="coord in vm.reportList">
+            <tr ng-repeat="best in vm.reportList">
                 <td>{{$index +1}}</td>
 
-                <td>{{coord.latitude}}</td>
-                <td>{{coord.user_id}}</td>
-                <td>{{coord.ordersCount}}</td>
-                <td>{{coord.totalAmount}}&nbsp;Bs.</td>
+                <td>{{best.user.firstName}}{{ ' '+best.user.firstSurname}}</td>
+                <td>{{best.user_id}}</td>
+                <td>{{best.ordersCount}}</td>
+                <td>{{best.totalAmount+' '}}Bs.</td>
             </tr>
             </tbody>
         </table>

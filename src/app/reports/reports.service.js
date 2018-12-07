@@ -77,30 +77,37 @@
     }
 
     function bestSellers(since, until) {
-      var deferred = $q.defer();
+      let deferred = $q.defer();
       since = since.toISOString().split("T")[0];
       until = until.toISOString().split("T")[0];
-      $http.get(API_ENDPOINT + '/reports/bestSellers?since=' + since + '&until=' + until)
-        .then(function (response) {
-          let sellerList = response.data.data;
-          let bestSellers = [];
-          sellerList = _.groupBy(sellerList, 'user_id')
-          _.forEach(sellerList, (items, index) => {
-            let ordersCount = items.length, totalAmount = 0;
-            _.forEach(items, (order, index) => {
-              totalAmount = totalAmount + order.total
+      let users = [];
+
+      getUsers().then(response => {
+        users = response;
+        $http.get(API_ENDPOINT + '/reports/bestSellers?since=' + since + '&until=' + until)
+          .then(function (response) {
+            let sellerList = response.data.data;
+            let bestSellers = [];
+            sellerList = _.groupBy(sellerList, 'user_id')
+            _.forEach(sellerList, (items, index) => {
+              let ordersCount = items.length, totalAmount = 0;
+              _.forEach(items, (order, index) => {
+                totalAmount = totalAmount + order.total
+              });
+              bestSellers.push({
+                user_id: index,
+                user:_.find(users,(item)=>{return item.ci===index}),
+                ordersCount: ordersCount,
+                orders: items,
+                totalAmount: totalAmount
+              });
             });
-            bestSellers.push({
-              user_id: index,
-              ordersCount: ordersCount,
-              orders: items,
-              totalAmount: totalAmount
-            });
+            deferred.resolve(_.orderBy(bestSellers, ['totalAmount'], ['desc']));
+          }, function (response) {
+            deferred.reject(response);
           });
-          deferred.resolve(_.orderBy(bestSellers, ['totalAmount'], ['desc']));
-        }, function (response) {
-          deferred.reject(response);
-        });
+      });
+
       return deferred.promise;
     }
   }
