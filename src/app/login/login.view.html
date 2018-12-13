@@ -2,19 +2,22 @@
     <form class="form-signin">
         <img class="mb-4" src="../../assets/images/sm-logo.png" alt="" width="270" height="130">
         <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+        <label class="alert-warning" ng-show="vm.flagValidation">N° de Identidad o Contraseña Invalido</label>
         <label for="inputCi" class="sr-only">Nº de Cedula de Identidad:</label>
         <input ng-model="vm.ci"
+               ng-change="vm.change()"
                type="text"
                id="inputCi"
                class="form-control"
                placeholder="Nº de Cedula de Identidad:"
                required autofocu>
-        <label for="inputPassword" class="sr-only">Password</label>
+        <label for="inputPassword" class="sr-only">Contraseña</label>
         <input ng-model="vm.password"
+               ng-change="vm.change()"
                type="password"
                id="inputPassword"
                class="form-control"
-               placeholder="Password"
+               placeholder="Contraseña"
                required>
         <!--<div class="checkbox mb-3">-->
         <!--<label>-->
