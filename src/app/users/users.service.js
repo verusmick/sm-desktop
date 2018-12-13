@@ -7,7 +7,8 @@
       getAll: getAll,
       deleteUser: deleteUser,
       createUser: createUser,
-      getAllRoles: getAllRoles
+      getAllRoles: getAllRoles,
+      getUserById: getUserById
     };
 
     function getAll() {
@@ -72,6 +73,17 @@
     function getAllRoles() {
       let deferred = $q.defer();
       $http.get(API_ENDPOINT + '/roles')
+        .then(function (response) {
+          deferred.resolve(response.data);
+        }, function (response) {
+          deferred.reject(response);
+        })
+      return deferred.promise;
+    }
+
+    function getUserById(userId){
+      let deferred = $q.defer();
+      $http.get(API_ENDPOINT + '/users/'+userId)
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {

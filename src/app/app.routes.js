@@ -35,6 +35,12 @@
         auth: true,
         resourceName: 'desk_users'
       })
+      .state('dashboard.editUser', {
+        url: '/editUser/{userId}',
+        component: 'editUser',
+        auth: true,
+        resourceName: 'desk_users'
+      })
       .state('dashboard.sellersTrack', {
         url: '/sellersTrack',
         component: 'sellersTrack',
