@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <h5>Editar Usuario: 'test'</h5>
+        <h5>Editar Usuario: {{vm.newUserModel.firstName+' '}}{{vm.newUserModel.firstSurname}}</h5>
         <p class="text-danger">Todos los campos con el valor (*) son obligatorios</p>
         <form>
             <div class="row">
@@ -40,7 +40,7 @@
                     <div class="form-group">
                         <label>Nº de Cedula de Identidad*</label>
                         <input type="text" class="form-control" placeholder="Nº de Cedula de Identidad"
-                               ng-model="vm.newUserModel.ciNumber">
+                               ng-model="vm.newUserModel.ciNumber" disabled>
                     </div>
                 </div>
                 <div class="col-md-6 pl-1">
@@ -56,14 +56,14 @@
             <div class="row">
                 <div class="col-md-6 pr-1">
                     <div class="form-group">
-                        <label>Contraseña*</label>
+                        <label>Contraseña</label>
                         <input type="password" class="form-control" placeholder="Contraseña"
                                ng-model="vm.newUserModel.password">
                     </div>
                 </div>
                 <div class="col-md-6 pl-1">
                     <div class="form-group">
-                        <label>Repita Contraseña*</label>
+                        <label>Repita Contraseña</label>
                         <input type="password" class="form-control" placeholder="Repita Contraseña"
                                ng-model="vm.newUserModel.passwordRepeat">
                     </div>
@@ -84,25 +84,30 @@
                         <label>Rol*</label>
                         <select  class="form-control"
                                  ng-model="vm.newUserModel.role"
-                                 ng-options="role.name for  role in vm.roles">
+                                 ng-options="role.name for  role in vm.roles track by role.roleId">
                         </select>
                     </div>
                 </div>
             </div>
             <div class="row">
+                <!--!vm.newUserModel.password||-->
+                <!--!vm.newUserModel.passwordRepeat ||-->
                 <div class="update ml-auto mr-auto">
+                    <button type="submit" class="btn btn-primary btn-round"
+                            ui-sref="dashboard.users">
+                        Cancelar
+                    </button>
                     <button type="submit" class="btn btn-primary btn-round"
                             ng-disabled="!vm.newUserModel.firstName ||
                                          !vm.newUserModel.firstSurname||
                                          !vm.newUserModel.ciNumber||
                                          !vm.newUserModel.bornedIn||
-                                         !vm.newUserModel.password||
-                                         !vm.newUserModel.passwordRepeat ||
                                          !vm.newUserModel.role.roleId"
                             ng-click="vm.createNewUser()">
-                        Guardar
+                        Actualizar Usuario
                     </button>
                 </div>
+
             </div>
         </form>
     </div>

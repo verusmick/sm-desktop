@@ -37,15 +37,31 @@
           if(data.status === 'error'){
             $state.go('dashboard.users');
           }else{
+            ínitParserUser(data.data)
 
           }
         })
       })
     }
 
+    function ínitParserUser (user){
+      vm.newUserModel = {
+        firstName: user.firstName,
+        secondName:user.secondName ,
+        firstSurname: user.firstSurname,
+        secondSurname: user.secondSurname,
+        ciNumber: user.ci,
+        bornedIn: user.bornedIn,
+        password: '',
+        passwordRepeat: '',
+        cellphone: user.cellphone,
+        role: {roleId : user.roleId}
+      }
+    }
+
     function createNewUser() {
       let newUserBody = parseBeforeToSave(vm.newUserModel);
-      UsersService.createUser(newUserBody).then(function (response) {
+      UsersService.updateUser(newUserBody).then(function (response) {
         $state.go('dashboard.users');
       }).catch(function () {
 

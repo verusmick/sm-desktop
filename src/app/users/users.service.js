@@ -7,6 +7,7 @@
       getAll: getAll,
       deleteUser: deleteUser,
       createUser: createUser,
+      updateUser: updateUser,
       getAllRoles: getAllRoles,
       getUserById: getUserById
     };
@@ -62,6 +63,17 @@
     function createUser(newUserBody) {
       let deferred = $q.defer();
       $http.post(API_ENDPOINT + '/users', newUserBody)
+        .then(function (response) {
+          deferred.resolve(response.data);
+        }, function (response) {
+          deferred.reject(response);
+        })
+      return deferred.promise;
+    }
+
+    function updateUser(updateUserBody) {
+      let deferred = $q.defer();
+      $http.put(API_ENDPOINT + '/users', updateUserBody)
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
