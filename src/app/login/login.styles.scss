@@ -24,13 +24,22 @@ login {
 .form-signin .form-control:focus {
   z-index: 2;
 }
-.form-signin input[type="text"] {
+#inputCi {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
-.form-signin input[type="password"] {
+#inputPassword {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.field-icon {
+  float: right;
+  position: relative;
+  z-index: 2;
+  left: -12px;
+  top:-37px;
+  cursor: pointer;
 }

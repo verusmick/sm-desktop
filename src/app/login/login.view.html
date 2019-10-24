@@ -14,16 +14,18 @@
         <label for="inputPassword" class="sr-only">Contraseña</label>
         <input ng-model="vm.password"
                ng-change="vm.change()"
-               type="password"
+               type="{{vm.passwordTypeInput}}"
                id="inputPassword"
                class="form-control"
                placeholder="Contraseña"
                required>
-        <!--<div class="checkbox mb-3">-->
-        <!--<label>-->
-        <!--<input type="checkbox" value="remember-me"> Remember me-->
-        <!--</label>-->
-        <!--</div>-->
+        <span
+              toggle="#password-field"
+              class="fa fa-fw  field-icon toggle-password"
+              ng-class="{'fa-eye': vm.showPassword, 'fa-eye-slash': !vm.showPassword} "
+              ng-click="vm.showHidePassword()">
+        </span>
+
         <button ng-click="vm.login()"
                 ng-disabled="!vm.ci || !vm.password"
                 class="btn btn-lg btn-primary btn-block"

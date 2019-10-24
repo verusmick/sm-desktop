@@ -13,14 +13,22 @@
     vm.ci = '';
     vm.password = '';
     vm.flagValidation = false;
+    vm.showPassword = false;
+    vm.passwordTypeInput = 'password';
 
     vm.change = change;
+    vm.showHidePassword = showHidePassword;
     vm.login = login;
 
     ////
 
     function change() {
       vm.flagValidation = false
+    }
+
+    function showHidePassword() {
+      vm.showPassword = !vm.showPassword;
+      vm.passwordTypeInput = vm.showPassword ?  'text':'password';
     }
 
     function login() {
