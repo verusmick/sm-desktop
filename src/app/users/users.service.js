@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('app').factory('UsersService', UsersService);
-  function UsersService($http, $q, API_ENDPOINT) {
+  function UsersService($http, $q, API_ENDPOINT, $localStorage) {
     return {
       getAll: getAll,
       deleteUser: deleteUser,
@@ -14,8 +14,12 @@
 
     function getAll() {
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/users')
-        .then(function (response) {
+      $http.get(API_ENDPOINT + '/users', {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      }).then(function (response) {
           deferred.resolve(response.data);
           let users = response.data;
           let promises = [];
@@ -40,7 +44,12 @@
 
     function getGPSStatus(userId) {
       var deferred = $q.defer();
-      $http.delete(API_ENDPOINT + '/gpsTracking/gpsStatus/' + userId)
+      $http.delete(API_ENDPOINT + '/gpsTracking/gpsStatus/' + userId, {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
@@ -51,7 +60,12 @@
 
     function deleteUser(idUser) {
       var deferred = $q.defer();
-      $http.delete(API_ENDPOINT + '/users/' + idUser)
+      $http.delete(API_ENDPOINT + '/users/' + idUser, {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
@@ -62,7 +76,12 @@
 
     function createUser(newUserBody) {
       let deferred = $q.defer();
-      $http.post(API_ENDPOINT + '/users', newUserBody)
+      $http.post(API_ENDPOINT + '/users', newUserBody, {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
@@ -73,7 +92,12 @@
 
     function updateUser(updateUserBody) {
       let deferred = $q.defer();
-      $http.put(API_ENDPOINT + '/users', updateUserBody)
+      $http.put(API_ENDPOINT + '/users', updateUserBody, {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
@@ -84,7 +108,12 @@
 
     function getAllRoles() {
       let deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/roles')
+      $http.get(API_ENDPOINT + '/roles', {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
@@ -95,7 +124,12 @@
 
     function getUserById(userId){
       let deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/users/'+userId)
+      $http.get(API_ENDPOINT + '/users/' + userId, {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {

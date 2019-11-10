@@ -2,14 +2,19 @@
   'use strict';
 
   angular.module('app').factory('SellersTrackService', SellersTrackService);
-  function SellersTrackService($http, $q, API_ENDPOINT) {
+  function SellersTrackService($http, $q, API_ENDPOINT, $localStorage) {
     return {
       getSellers: getSellers
     };
 
     function getSellers() {
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + "/users?roleFilter=visitador")
+      $http.get(API_ENDPOINT + "/users?roleFilter=visitador", {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           let sellers = response.data.data.users;
           let promises = [];
@@ -32,7 +37,12 @@
 
     function getGPSStatus(userId) {
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/gpsTracking/gpsStatus/' + userId)
+      $http.get(API_ENDPOINT + '/gpsTracking/gpsStatus/' + userId, {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {

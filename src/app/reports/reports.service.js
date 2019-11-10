@@ -3,7 +3,7 @@
 
   angular.module('app').factory('ReportsService', ReportsService);
   angular.module('app').directive('exportToCsv', exportToCsv);
-  function ReportsService($http, $q, API_ENDPOINT) {
+  function ReportsService($http, $q, API_ENDPOINT, $localStorage) {
     return {
       getSellers: getSellers,
       getCoordinatesReport: getCoordinatesReport,
@@ -16,7 +16,12 @@
 
     function getSellers() {
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/users?roleFilter=visitador')
+      $http.get(API_ENDPOINT + '/users?roleFilter=visitador', {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           let list = response.data.data.users;
           _.forEach(list, (seller, index) => {
@@ -33,7 +38,12 @@
       var deferred = $q.defer();
       since = since.toISOString().split("T")[0];
       until = until.toISOString().split("T")[0];
-      $http.get(API_ENDPOINT + '/history/sellers?since=' + since + '&until=' + until + '&userId=' + userId)
+      $http.get(API_ENDPOINT + '/history/sellers?since=' + since + '&until=' + until + '&userId=' + userId, {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
@@ -46,7 +56,12 @@
       var deferred = $q.defer();
       since = since.toISOString().split("T")[0];
       until = until.toISOString().split("T")[0];
-      $http.get(API_ENDPOINT + '/reports/getStatusGpsPerSeller?since=' + since + '&until=' + until + '&userId=' + userId)
+      $http.get(API_ENDPOINT + '/reports/getStatusGpsPerSeller?since=' + since + '&until=' + until + '&userId=' + userId, {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data);
         }, function (response) {
@@ -57,7 +72,12 @@
 
     function getRoles() {
       let deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/roles')
+      $http.get(API_ENDPOINT + '/roles', {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data.data.roles);
         }, function (response) {
@@ -68,7 +88,12 @@
 
     function getUsers() {
       var deferred = $q.defer();
-      $http.get(API_ENDPOINT + '/users')
+      $http.get(API_ENDPOINT + '/users', {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
         .then(function (response) {
           deferred.resolve(response.data.data.users);
         }, function (response) {
@@ -85,7 +110,12 @@
 
       getUsers().then(response => {
         users = response;
-        $http.get(API_ENDPOINT + '/reports/bestSellers?since=' + since + '&until=' + until)
+        $http.get(API_ENDPOINT + '/reports/bestSellers?since=' + since + '&until=' + until, {
+          headers: {
+            userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+            ci: $localStorage['usr'].ci
+          }
+        })
           .then(function (response) {
             let sellerList = response.data.data;
             let bestSellers = [];
@@ -122,7 +152,12 @@
 
       getUsers().then(response => {
         users = response;
-        $http.get(API_ENDPOINT + '/reports/orders?since=' + since + '&until=' + until).then(response => {
+        $http.get(API_ENDPOINT + '/reports/orders?since=' + since + '&until=' + until, {
+          headers: {
+            userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+            ci: $localStorage['usr'].ci
+          }
+        }).then(response => {
           let list = response.data.data;
           _.forEach(list, item => {
             item['user'] = _.find(users, user => {
