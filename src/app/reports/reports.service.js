@@ -11,7 +11,8 @@
       getRoles: getRoles,
       getUsers: getUsers,
       bestSellers: bestSellers,
-      getOrders: getOrders
+      getOrders: getOrders,
+      getLogs: getLogs
     };
 
     function getSellers() {
@@ -171,6 +172,23 @@
 
       })
 
+      return deferred.promise;
+    }
+
+    function getLogs() {
+      var deferred = $q.defer();
+      $http.get(API_ENDPOINT + '/reports/logs', {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      })
+        .then(function (response) {
+          console.log('tete--->', response);
+          deferred.resolve(response.data.data);
+        }, function (response) {
+          deferred.reject(response);
+        })
       return deferred.promise;
     }
   }

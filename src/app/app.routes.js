@@ -88,6 +88,12 @@
         component: 'ordersReport',
         auth: true,
         resourceName: 'desk_reports'
+      })
+      .state('dashboard.reportLogs', {
+        url: '/reportLogs',
+        component: 'logsReport',
+        auth: true,
+        resourceName: 'desk_reports'
       });
 
     $urlRouterProvider.otherwise('/login');

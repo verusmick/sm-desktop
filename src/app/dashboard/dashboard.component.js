@@ -101,6 +101,11 @@
             abbrev: 'P',
             name: 'Proformas',
             uiRef: 'dashboard.reportOrdersReport'
+          },
+          {
+            abbrev: 'L',
+            name: 'Logs',
+            uiRef: 'dashboard.reportLogs'
           }
         ]
       }

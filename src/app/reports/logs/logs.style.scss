@@ -1,0 +1,18 @@
+logs-report {
+  .container-fluid {
+    padding-top: 1.5%;
+    padding-left: 7%;
+    padding-right: 12%;
+    //height: 100%;
+    position: relative;
+    .row {
+      background-color: #dcddde;
+      border: 1px solid #ccc!important;
+      height: 400px;
+      overflow-y: scroll;
+    }
+    .logs{
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<div class="col-md-12">
+    <h4>Logs</h4>
+    <div class="container-fluid">
+        <div class="row">
+            <!--<p>{{vm.originalLogs}}</p>-->
+            <div  class="logs" ng-repeat="log in vm.originalLogs | orderBy:'-time'">
+                <b>Fecha:</b> {{log.time | date: 'yyyy-MM-dd HH:mm:ss'}} <b>Usuario: </b>{{log.user}} <b>mensaje:</b> {{log.msg}}
+            </div>
+        </div>
+    </div>
+</div>
+
