@@ -60,7 +60,7 @@
     <div class="table-responsive" ng-if="vm.reportList.length > 0">
         <table class="table" id="#reportTable">
             <thead class=" text-primary">
-            <th>#</th> <th>CI</th> <th>Latitud</th> <th>Longitud</th><th>Fecha</th>
+            <th>#</th> <th>CI</th> <th>Latitud</th> <th>Longitud</th><th>Fecha</th> <th>Mapa</th>
             </thead>
             <tbody>
             <tr ng-repeat="coord in vm.reportList">
@@ -69,6 +69,8 @@
                 <td>{{coord.latitude}}</td>
                 <td>{{coord.longitude}}</td>
                 <td>{{coord.timestamp| date : 'yyyy-MM-ddTHH:mm:ss'}}</td>
+                <td style="color:blueviolet; cursor: pointer;" ng-click="vm.openPositionModal(coord.latitude,coord.longitude )">Ver
+                </td>
             </tr>
             </tbody>
         </table>
