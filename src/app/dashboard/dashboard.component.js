@@ -42,15 +42,15 @@
           }
         ]
       },
-      {
-        id: 'orderPages',
-        name: 'Proformas',
-        expanded: false,
-        icon: 'nc-icon nc-paper',
-        resourceCode: 'desk_orders',
-        childs: [],
-        uiRef: 'dashboard.orders'
-      },
+      // {
+      //   id: 'orderPages',
+      //   name: 'Proformas',
+      //   expanded: false,
+      //   icon: 'nc-icon nc-paper',
+      //   resourceCode: 'desk_orders',
+      //   childs: [],
+      //   uiRef: 'dashboard.orders'
+      // },
       {
         id: 'userPages',
         name: 'Usuarios',
@@ -92,16 +92,16 @@
             name: 'Usuarios',
             uiRef: 'dashboard.reportUsers'
           },
-          {
-            abbrev: 'MV',
-            name: 'Mejores Visitadores',
-            uiRef: 'dashboard.reportBestSellers'
-          },
-          {
-            abbrev: 'P',
-            name: 'Proformas',
-            uiRef: 'dashboard.reportOrdersReport'
-          },
+          // {
+          //   abbrev: 'MV',
+          //   name: 'Mejores Visitadores',
+          //   uiRef: 'dashboard.reportBestSellers'
+          // },
+          // {
+          //   abbrev: 'P',
+          //   name: 'Proformas',
+          //   uiRef: 'dashboard.reportOrdersReport'
+          // },
           {
             abbrev: 'L',
             name: 'Logs',
