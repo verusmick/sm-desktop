@@ -56,7 +56,7 @@
         name: 'Usuarios',
         expanded: false,
         icon: 'fa fa-users',
-        resourceCode: 'desk_geoSellers',
+        resourceCode: 'desk_users',
         childs: [
           {
             abbrev: 'LU',
