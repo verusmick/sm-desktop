@@ -1,11 +1,55 @@
 <div class="col-md-12">
     <h4>Logs</h4>
-    <div class="container-fluid">
-        <div class="row">
-            <!--<p>{{vm.originalLogs}}</p>-->
-            <div  class="logs" ng-repeat="log in vm.originalLogs | orderBy:'-time'">
-                <b>Fecha:</b> {{log.time | date: 'yyyy-MM-dd HH:mm:ss'}} <b>Usuario: </b>{{log.user}} <b>mensaje:</b> {{log.msg}}
+    <div class="row">
+        <div class="col-md4 pr-1">
+            <div class="form-group">
+                <label>Filtrar Logs x Usuario*</label>
+                <select class="form-control"
+                        ng-model="vm.userSelected"
+                        ng-change="vm.changeSeller()"
+                        ng-options="user.label for user in vm.userList">
+                    <option value=""></option>
+                </select>
             </div>
+        </div>
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Filtrar por fecha: Desde</label>
+                <input type="date"
+                       name="bday"
+                       min="1000-01-01"
+                       max="3000-12-31"
+                       class="form-control"
+                       ng-model="vm.dateSince">
+            </div>
+        </div>
+        <div class="col-md-4 pl-1">
+            <div class="form-group">
+                <label>Hasta</label>
+                <input type="date"
+                       name="bday"
+                       min="1000-01-01"
+                       max="3000-12-31"
+                       class="form-control"
+                       ng-model="vm.dateUntil">
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="table-responsive">
+            <table class="table" id="#reportTable">
+                <thead class=" text-primary">
+                <th>Hora y Fecha</th> <th>Usuario</th> <th>CI</th><th>Accion Efectuada</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="log in vm.originalLogs | orderBy:'-time' | filter : { ci: vm.userSelected.ci} | dateFilter:vm.dateSince:vm.dateUntil">
+                    <td>{{log.time | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                    <td>{{log.user}}</td>
+                    <td>{{log.ci}}</td>
+                    <td>{{log.msg}}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

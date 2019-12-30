@@ -12,21 +12,32 @@
     const vm = this;
     vm.originalLogs = [];
     vm.reverseLogs  = [];
+    vm.userList = [];
+    vm.userSelected = undefined;
+    vm.dateSince = '';
+    vm.dateUntil = '';
+    vm.getUsers = getUsers;
     /////
     function initialize() {
+      vm.getUsers();
       getLogs()
+    }
+
+    function getUsers() {
+      ReportsService.getUsers().then(function (response) {
+        response.forEach(function (item, index) {
+          response[index]['label'] = item.firstName + ' ' + item.firstSurname;
+        });
+        vm.userList = response;
+      });
     }
 
     function getLogs() {
       ReportsService.getLogs().then(function (response) {
-        console.log('Toto-->');
-        console.log(response);
         vm.originalLogs = response;
-        // vm.reverseLogs = response.reverse();
-        // console.log('Reverse');
-        // console.log(vm.reverseLogs)
       });
     }
+
     initialize();
   }
 })();
