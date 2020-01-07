@@ -12,7 +12,8 @@
       getUsers: getUsers,
       bestSellers: bestSellers,
       getOrders: getOrders,
-      getLogs: getLogs
+      getLogs: getLogs,
+      getClients:getClients
     };
 
     function getSellers() {
@@ -184,11 +185,26 @@
         }
       })
         .then(function (response) {
-          console.log('tete--->', response);
           deferred.resolve(response.data.data);
         }, function (response) {
           deferred.reject(response);
         })
+      return deferred.promise;
+    }
+
+    function getClients(searchTerm, debtClient) {
+      var deferred = $q.defer();
+      let keyDebt = debtClient? `&debt=${debtClient}`:'';
+      $http.get(API_ENDPOINT + '/clients'+ '?like=' + searchTerm.trim()+keyDebt, {
+        headers: {
+          userName: $localStorage['usr'].firstName + ' ' + $localStorage['usr'].firstSurname,
+          ci: $localStorage['usr'].ci
+        }
+      }).then(function (response) {
+        deferred.resolve(response.data);
+      }, function (response) {
+        deferred.reject(response);
+      })
       return deferred.promise;
     }
   }

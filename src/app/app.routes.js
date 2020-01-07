@@ -83,6 +83,12 @@
         auth: true,
         resourceName: 'desk_reports'
       })
+      .state('dashboard.debtClients', {
+        url: '/reportDebtClients?debtLimit',
+        component: 'debtClients',
+        auth: true,
+        resourceName: 'desk_reports'
+      })
       .state('dashboard.reportOrdersReport', {
         url: '/reportOrdersReport',
         component: 'ordersReport',

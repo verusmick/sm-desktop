@@ -8,7 +8,7 @@
   });
 
   /** @ngInject */
-  function DashboardController($localStorage, $timeout, $state) {
+  function DashboardController($localStorage, $timeout, $state, ReportsService) {
     const vm = this;
     vm.logout = logout;
     vm.verifyResource = verifyResource;
@@ -98,6 +98,11 @@
             uiRef: 'dashboard.reportBestSellers'
           },
           {
+            abbrev: 'CD',
+            name: 'Clientes con Deuda',
+            uiRef: 'dashboard.debtClients'
+          },
+          {
             abbrev: 'P',
             name: 'Proformas',
             uiRef: 'dashboard.reportOrdersReport'
@@ -109,10 +114,11 @@
           }
         ]
       }
-    ]
-
+    ];
+    vm.existClientsWithDebtUpper = false;
+    vm.showAlert = false;
     // Scope variables go here:
-    // vm.variable = 'value';
+    vm.verifyDebtClients = verifyDebtClients;
 
     ////////////
     var transparent = true;
@@ -128,15 +134,26 @@
     var seq2 = 0, delays2 = 80, durations2 = 500;
 
     function initialize() {
+      vm.verifyDebtClients();
+      if ($localStorage['usr'].resources.indexOf("desk_reports") !== -1) {
+        vm.showAlert = true;
+      }
+
       var isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
       if (isWindows) {
         // if we are on windows OS we activate the perfectScrollbar function
         $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
         $('html').addClass('perfect-scrollbar-on');
       } else {
         $('html').addClass('perfect-scrollbar-off');
       }
+    }
+
+    function verifyDebtClients() {
+      let limit = '>=20000';
+      ReportsService.getClients('', limit).then(function (response) {
+        vm.existClientsWithDebtUpper = response.length > 0;
+      });
     }
 
     $(document).ready(function () {

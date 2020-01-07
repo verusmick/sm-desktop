@@ -1,0 +1,59 @@
+<div class="col-md-12">
+    <h4>Clientes con Deuda</h4>
+    <p class="bg-warning" style="width: 50%;">Nota: El limite de deuda es de 20.000 Bs.</p>
+    <div class="row">
+        <div class="col-md-6 pl-1">
+            <div class="form-group">
+                <label>Buscar por Razon Social</label>
+                <input type="text"
+                       class="form-control"
+                       ng-model="vm.searchTerm"
+                       ng-change="vm.changeSearchTerm()">
+            </div>
+        </div>
+        <div class="col-md6 pr-1">
+            <div class="form-group">
+                <label>Filtrar por limite de deuda*</label>
+                <select class="form-control"
+                        ng-model="vm.lowerUpperDebtParam"
+                        ng-change="vm.lowerUpperDebt()"
+                        style="background-color: green; color: #111111;"
+                        ng-style="{'background-color':vm.lowerUpperDebtParam==='>=20000'? '#ff0000c7': vm.lowerUpperDebtParam===''? '': '#008000e0'}">
+                    <option value="" style="background-color: white"></option>
+                    <option value=">=20000" style="background-color: #ff0000c7">Deuda mayor o igual que 20.000 Bs.</option>
+                    <option value="<20000" style="background-color: #008000e0">Deuda menor o igual que 20.000 Bs</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 pl-1">
+            <div>
+                <button class="btn btn-primary btn-round"
+                        export-to-csv
+                        ng-disabled="vm.debtClients.length === 0">
+                    Exportar a Excel
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive" ng-if="vm.debtClients.length > 0">
+        <table class="table" id="#reportTable">
+            <thead class=" text-primary">
+            <th>N°</th>
+            <th>Tipo</th>
+            <th>Razon Social</th>
+            <th>Deuda Total</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="debt in vm.debtClients | orderBy :'-deuda_actual'" ng-if="debt.razon_social && debt.deuda_actual ">
+                <td>{{$index +1}}</td>
+                <td>{{debt.tipo}}</td>
+                <td>{{debt.razon_social}}</td>
+                <td>{{debt.deuda_actual}} Bs.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
