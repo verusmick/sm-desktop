@@ -213,7 +213,7 @@
     return {
       restrict: 'A',
       ngTable: '=',
-
+      scope:{reportname: '@'},
       link: function (scope, element, attrs) {
         var el = element[0];
         element.bind('click', function (e) {
@@ -231,7 +231,7 @@
           var a = $('<a/>', {
             style: 'display:none',
             href: 'data:application/octet-stream;base64,' + btoa(csvString),
-            download: 'report.csv'
+            download: scope.reportname? scope.reportname:'report.csv'
           }).appendTo('body')
           a[0].click()
           a.remove();
