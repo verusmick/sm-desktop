@@ -61,7 +61,9 @@
         cacheMarkersList.push(newMarker(event));
       }
       _.forEach(vm.markers, (marker, index) => {
-        vm.markers[index].setMap(null)
+        if(event.userId === vm.markers[index].userId){
+          vm.markers[index].setMap(null)
+        }
       });
       setMarkerList(cacheMarkersList)
     }
@@ -133,6 +135,7 @@
     }
 
     function setMarkerList(list) {
+      vm.markers = [];
       vm.markers = list;
       _.forEach(vm.markers, (marker, index) => {
         marker.addListener('click', function () {
@@ -145,3 +148,80 @@
     initialize();
   }
 })();
+
+// Test
+// setInterval(function () {
+//   setTimeout(function () {
+//     setMarkers({
+//       userId: "7654321",
+//       latitude: -16.4896168,
+//       longitude: -68.1148229,
+//       timestamp: "2020-01-13 17:09:33"
+//     });
+//   }, 2000);
+//
+//   setTimeout(function () {
+//     setMarkers({
+//       userId: "8413342",
+//       latitude: -16.512454,
+//       longitude: -68.1148229,
+//       timestamp: "2020-01-13 20:09:33"
+//     });
+//   }, 1500);
+//
+//   //
+//   setTimeout(function () {
+//     setMarkers({
+//       userId: "7654321",
+//       latitude: -16.499616,
+//       longitude: -68.124822,
+//       timestamp: "2020-01-13 17:09:33"
+//     });
+//   }, 4000);
+//
+//   setTimeout(function () {
+//     setMarkers({
+//       userId: "8413342",
+//       latitude: -16.52245,
+//       longitude: -68.124822,
+//       timestamp: "2020-01-13 20:09:33"
+//     });
+//   }, 3000);
+//   //
+//   setTimeout(function () {
+//     setMarkers({
+//       userId: "7654321",
+//       latitude: -16.599616,
+//       longitude: -68.224822,
+//       timestamp: "2020-01-13 17:09:33"
+//     });
+//   }, 6000);
+//
+//   setTimeout(function () {
+//     setMarkers({
+//       userId: "8413342",
+//       latitude: -16.62245,
+//       longitude: -68.224822,
+//       timestamp: "2020-01-13 20:09:33"
+//     });
+//   }, 4500);
+//
+//   //
+//   setTimeout(function () {
+//     setMarkers({
+//       userId: "7654321",
+//       latitude: -16.4896168,
+//       longitude: -68.1148229,
+//       timestamp: "2020-01-13 17:09:33"
+//     });
+//   }, 8000);
+//
+//   setTimeout(function () {
+//     setMarkers({
+//       userId: "8413342",
+//       latitude: -16.512454,
+//       longitude: -68.1148229,
+//       timestamp: "2020-01-13 20:09:33"
+//     });
+//   }, 6200);
+// }, 10000);
